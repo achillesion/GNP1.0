@@ -1,0 +1,17 @@
+@import "../../sass/helper";
+
+.wrapper {
+	padding: 40px 10px;
+
+	@include tablet {
+		padding: 40px;
+	}
+}
+
+.personal {
+	margin-bottom: 40px;
+}
+
+.personalText {
+	margin-bottom: 26px;
+}

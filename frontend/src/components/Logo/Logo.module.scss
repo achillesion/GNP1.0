@@ -1,0 +1,11 @@
+@import "../../sass/helper";
+
+.logo {
+	width: 130px;
+	display: flex;
+
+	@include tablet {
+		width: 181px;
+		display: inline-block;
+	}
+}

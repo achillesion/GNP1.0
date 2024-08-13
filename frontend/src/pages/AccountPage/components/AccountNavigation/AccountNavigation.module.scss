@@ -1,0 +1,47 @@
+@import "../../../../sass/helper";
+
+.navLink,
+.navLinkActive {
+	display: block;
+	transition: all 300ms ease;
+	width: 100%;
+	border-radius: $border-radius;
+	color: $info-color;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+
+	@include desktop {
+		justify-content: stretch;
+		gap: 8px;
+		padding: 15px 16px;
+	}
+}
+
+.navLinkActive {
+	background-color: #ebfcff;
+	color: $text-color;
+}
+
+.navigation {
+	padding: 10px;
+
+	@include desktop {
+		padding: 28px;
+	}
+}
+
+.navList {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.linkText {
+	display: none;
+
+	@include desktop {
+		display: block;
+	}
+}

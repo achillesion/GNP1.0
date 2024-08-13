@@ -1,0 +1,98 @@
+@import "../../../../../../sass/helper";
+
+.card {
+	flex-basis: 100%;
+	cursor: pointer;
+	background: white;
+	border-radius: 10px;
+	@include tablet {
+		flex-basis: calc(50% - 20px);
+	}
+
+	@include desktop {
+		flex-basis: calc(25% - 25px);
+	}
+	&:hover {
+		box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+		.showInfo {
+			opacity: 0.2;
+			&:hover {
+				opacity: 1;
+			}
+		}
+	  }
+}
+
+.cardInner {
+	width: 100%;
+	height: 100%;
+}
+
+.cardImage {
+	width: 100%;
+	margin-bottom: 23px;
+
+	& > img {
+		border-radius: $border-radius;
+		height: 300px;
+		width: 100%;
+		object-fit: cover;
+	}
+}
+
+.cardDescription {
+	padding: 0 8px 8px;
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.aircraft {
+	font-weight: 500;
+	font-size: 16px;
+	color: $text-color;
+	line-height: calc(19 / 16);
+}
+
+.identifier {
+	display: flex;
+	gap: 13px;
+	width: 100%;
+	font-size: 14px;
+}
+
+.decorationLine {
+	display: inline-block;
+	min-height: 20px;
+	width: 1px;
+	background-color: $disabled-color;
+}
+
+.identifierText {
+	color: $info-color;
+	margin-bottom: 8px;
+	justify-self: end;
+	& > span {
+		color: $text-color;
+	}
+}
+
+.rating {
+	display: flex;
+	gap: 6px;
+}
+
+.showInfo {
+	opacity: 0;
+	font-size: 12px;
+	&:hover {
+		opacity: 1;
+		text-decoration: underline;
+	}
+}

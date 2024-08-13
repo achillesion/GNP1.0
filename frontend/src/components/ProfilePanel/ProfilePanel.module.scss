@@ -1,0 +1,85 @@
+@import "../../sass/helper";
+
+.wrapper {
+	position: relative;
+}
+
+.profileButton {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	background-color: #001a1f;
+	padding: 8px 15px;
+	border-radius: $border-radius;
+
+	@include tablet {
+		min-width: 200px;
+	}
+}
+
+.preview {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+
+	& > img {
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		object-fit: cover;
+	}
+}
+
+.avatar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+	background-color: $secondary-color;
+	border-radius: 100%;
+	color: #000;
+}
+
+.userName {
+	display: none;
+	color: $primary-color;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: calc(17 / 14);
+
+	@include tablet {
+		display: block;
+	}
+}
+
+.icon,
+.iconActive {
+	height: 24px;
+	transition: transform 200ms ease-in-out;
+}
+
+.iconActive {
+	transform: rotate(180deg);
+}
+
+.navText {
+	display: none;
+	color: $primary-color;
+
+	@include tablet {
+		display: block;
+	}
+}
+
+.navLink,
+.logout {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.logout {
+	margin-top: 30px;
+}

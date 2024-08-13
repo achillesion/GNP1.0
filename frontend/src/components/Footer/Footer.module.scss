@@ -1,0 +1,46 @@
+@import "../../sass/helper";
+
+.footerGray,
+.footerWhite {
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+	@include desktop {
+		padding-top: 50px;
+	}
+}
+
+.footerWhite {
+	background-color: #fff;
+}
+
+.footerGray {
+	background-color: #f8f8f8;
+}
+
+.footerInner {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.decorationLine {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: $main-color;
+
+	margin: 20px 0;
+
+	@include desktop {
+		margin: 46px 0 32px;
+	}
+}
+
+.copy {
+	padding: 0 15px;
+	font-size: 14px;
+	color: $main-color;
+	line-height: calc(17 / 14);
+}

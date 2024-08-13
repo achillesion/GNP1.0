@@ -1,0 +1,17 @@
+@import "../../../../sass/helper";
+
+.top {
+	padding-left: 20px;
+	padding-right: 20px;
+
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	justify-content: space-between;
+	align-items: center;
+
+	@include desktop {
+		padding-right: 0;
+		padding-left: 0;
+	}
+}

@@ -1,0 +1,51 @@
+@import "../../../../sass/helper";
+
+.form {
+	padding: 0 10px;
+
+	@include desktop {
+		padding: 0;
+	}
+}
+
+.formBody {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-bottom: 24px;
+
+	@include desktop {
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 50px;
+	}
+}
+
+.formBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+	@include desktop {
+		flex-basis: 100%;
+	}
+}
+
+.description {
+	margin-bottom: 24px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+
+	@include desktop {
+		margin-top: 80px;
+	}
+}
+
+.time {
+	border: 1px solid #ff0000;
+}

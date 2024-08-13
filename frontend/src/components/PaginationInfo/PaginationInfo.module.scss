@@ -1,0 +1,16 @@
+@import "../../sass/helper";
+
+.wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	flex-wrap: wrap;
+	padding: 10px;
+}
+
+.textInfo {
+	font-size: 14px;
+	line-height: calc(20 / 14);
+	color: $info-color;
+}

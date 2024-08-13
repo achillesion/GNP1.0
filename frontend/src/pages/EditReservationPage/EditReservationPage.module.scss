@@ -1,0 +1,9 @@
+@import "../../sass/helper";
+
+.title {
+	margin-left: 10px;
+
+	@include desktop {
+		margin-left: 0;
+	}
+}

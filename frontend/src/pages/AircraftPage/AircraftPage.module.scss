@@ -1,0 +1,34 @@
+@import "../../sass/helper";
+
+.wrapper {
+	padding: 60px 0px 20px 0px;
+
+	@include desktop {
+		padding: 40px;
+	}
+}
+
+.divider {
+	margin-bottom: 15px;
+
+	@include desktop {
+		margin-bottom: 30px;
+	}
+}
+
+.top {
+	margin-bottom: 15px;
+
+	@include tablet {
+		margin-bottom: 30px;
+	}
+}
+
+.tableWrapper {
+	overflow-x: auto;
+	margin-bottom: 20px;
+}
+
+.empty {
+	margin-left: 10px;
+}

@@ -1,0 +1,23 @@
+@import "../../sass/helper";
+
+.wrapper {
+	width: 100%;
+	height: calc(100vh - 100px);
+}
+
+.paymentInner {
+	border-radius: $border-radius;
+	width: 100%;
+	height: 50%;
+	background-color: $error-bg-color;
+	border: 1px solid $error-color;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.text {
+	color: $error-color;
+}

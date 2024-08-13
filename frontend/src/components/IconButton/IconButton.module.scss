@@ -1,0 +1,12 @@
+@import "../../sass/helper";
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	background-color: $accent-color;
+	color: $text-color;
+	border-radius: $border-radius;
+	padding: 15px 18px;
+}

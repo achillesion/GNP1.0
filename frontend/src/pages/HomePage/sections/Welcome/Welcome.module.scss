@@ -1,0 +1,58 @@
+@import "../../../../sass/helper";
+
+.welcome {
+	margin: 20px;
+	margin-bottom: 20px;
+
+	@include tablet {
+		margin: 50px;
+		margin-bottom: 50px;
+	}
+
+	@include desktop {
+		margin: 130px;
+		margin-bottom: 130px;
+	}
+}
+
+.title {
+	margin-bottom: 40px;
+
+	@include tablet {
+		margin-bottom: 50px;
+	}
+
+	@include desktop {
+		margin-bottom: 70px;
+	}
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+
+	@include desktop {
+		gap: 85px;
+		flex-direction: row;
+	}
+}
+
+.welcomeImage {
+	@include tablet {
+		min-width: 500px;
+	}
+
+	@media screen and (min-width: 1600px) {
+		min-width: 710px;
+	}
+}
+
+.text {
+	margin-bottom: 20px;
+
+	@include tablet {
+		margin-bottom: 30px;
+	}
+}

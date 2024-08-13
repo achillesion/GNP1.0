@@ -1,0 +1,91 @@
+@import "../../sass/helper";
+
+.backdrop,
+.backdropActive {
+	position: fixed;
+	right: 0;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	transform: translateX(-100%);
+	transition: all 700ms ease;
+}
+
+.backdropActive {
+	transform: translateX(0);
+	background-color: #4e4c4c42;
+}
+
+.bodyModal,
+.bodyModalActive {
+	position: fixed;
+	bottom: 0;
+	top: 50%;
+	left: 50%;
+	transform: translate(-500%, -50%);
+	min-width: 300px;
+	max-height: 390px;
+	width: 80%;
+	height: 100%;
+	background-color: #ffffff;
+	border-radius: $border-radius;
+	padding: 20px;
+	transition: all 700ms linear;
+	z-index: 100;
+
+	@include tablet {
+		width: 100%;
+		max-width: 680px;
+	}
+}
+
+.bodyModalActive {
+	transform: translate(-50%, -50%);
+}
+
+.closeBtn {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.modalInner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+}
+
+.icon {
+	width: 70px;
+	height: 70px;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fef0f1;
+}
+
+.title {
+	font-weight: 500;
+	font-size: 28px;
+}
+
+.text {
+	font-size: 16px;
+	max-width: 310px;
+	color: $info-color;
+	text-align: center;
+	line-height: 172%;
+}
+
+.buttons {
+	width: 100%;
+	display: flex;
+	gap: 32px;
+	align-items: center;
+	justify-content: space-between;
+}

@@ -1,0 +1,16 @@
+@import "../../sass/helper";
+
+.title {
+	color: $main-color;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: calc(31 / 20);
+
+	@include tablet {
+		font-size: 40px;
+	}
+
+	@media screen and (min-width: 1600px) {
+		font-size: 60px;
+	}
+}

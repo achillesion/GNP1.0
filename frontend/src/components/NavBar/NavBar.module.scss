@@ -1,0 +1,12 @@
+@import "../../sass/helper";
+
+.navList {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+}
+
+.link {
+	display: inline-block;
+	color: $primary-color;
+}

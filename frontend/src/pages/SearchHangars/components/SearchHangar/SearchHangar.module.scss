@@ -1,0 +1,270 @@
+@import "../../../../sass/helper";
+
+.hangar,
+.hangarActive {
+	width: 100%;
+	border: 1px solid rgb(235, 235, 235);
+	border-radius: $border-radius;
+	padding: 15px;
+	transition: all 300ms ease;
+
+	@include tablet {
+		padding: 24px;
+	}
+}
+
+.hangarActive {
+	border: 1px solid rgb(108, 108, 108);
+}
+
+.hangarInner {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+
+	@include tablet {
+		flex-direction: row;
+		gap: 32px;
+	}
+}
+
+.hangarImage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	& > img {
+		border-radius: $border-radius;
+
+		@include tablet {
+			max-width: 170px;
+			max-height: 170px;
+			object-fit: cover;
+		}
+	}
+
+	@include tablet {
+		display: block;
+		max-width: 170px;
+		max-height: 170px;
+	}
+}
+
+.hangarInnerInfo {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.icon,
+.iconActive {
+	height: 24px;
+	transition: transform 200ms ease-in-out;
+}
+
+.iconActive {
+	transform: rotate(180deg);
+}
+
+.expansiveButton {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+
+	& > p {
+		text-decoration: underline;
+	}
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 11px;
+}
+
+.additionalInfo {
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+
+	@include desktop {
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+
+.location {
+	height: 100%;
+
+	@include desktop {
+		flex-basis: 50%;
+	}
+}
+
+.hangarTitle {
+	font-weight: 500;
+	font-size: 18px;
+	line-height: calc(27 / 22);
+
+	@include tablet {
+		font-size: 22px;
+	}
+}
+
+.rating {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	font-size: 16px;
+	line-height: calc(19 / 16);
+}
+
+.locationInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	@include tablet {
+		flex-direction: row;
+		gap: 20px;
+	}
+}
+
+.locationInfoText {
+	font-size: 16px;
+	line-height: calc(19 / 16);
+	color: $info-color;
+
+	& > span {
+		color: $text-color;
+	}
+}
+
+.price {
+	font-size: 18px;
+	line-height: calc(22 / 18);
+	color: $text-color;
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	margin-bottom: 30px;
+}
+
+.description {
+	@include desktop {
+		flex-basis: 45%;
+	}
+}
+
+.descriptionTitle {
+	font-size: 16px;
+	font-weight: 500;
+	line-height: calc(19 / 16);
+}
+
+.descriptionText {
+	font-size: 13px;
+	line-height: 150%;
+}
+
+.tableInfo {
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 0.5fr 0.5fr 0.3fr;
+	gap: 40px;
+
+	@include desktop {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 0.5fr 0.5fr;
+	}
+}
+
+.tableInfoBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+
+	@include desktop {
+		display: block;
+		&:nth-child(3) {
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 3;
+		}
+	}
+}
+
+.tableInfoTitle {
+	font-weight: 500;
+	font-size: 15px;
+	line-height: calc(18 / 15);
+	padding-bottom: 15px;
+	border-bottom: 1px solid $disabled-color;
+}
+
+.tableInfoItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	& > p {
+		font-size: 13px;
+		line-height: calc(16 / 13);
+	}
+
+	& > p:first-child {
+		color: $info-color;
+	}
+
+	& > p:last-child {
+		color: $text-color;
+	}
+
+	@include desktop {
+		margin-top: 10px;
+	}
+}
+
+.utilities,
+.utility {
+	list-style-type: disc;
+}
+
+.utility {
+	text-transform: capitalize;
+}
+
+.utilities {
+	padding-left: 24px;
+	color: $info-color;
+}
+
+.actions {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.reservationButton {
+	padding: 15px 25px;
+	color: $text-color;
+	font-size: 16px;
+	line-height: calc(19 / 16);
+	border: 1px solid $accent-color;
+	border-radius: $border-radius;
+	background: #ebfcff;
+}
+
+.street {
+	margin: 15px 0;
+	font-size: 13px;
+	line-height: calc(21 / 13);
+	color: $info-color;
+}

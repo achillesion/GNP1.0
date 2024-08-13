@@ -1,0 +1,41 @@
+@import "../../sass/helper";
+
+.wrapper {
+	position: relative;
+	display: flex;
+	width: 215px;
+	justify-content: space-between;
+	height: 50px;
+	padding: 6px;
+	background-color: $background-color;
+	border-radius: $border-radius;
+}
+
+.indicatorLeft,
+.indicatorRight {
+	border-radius: $border-radius;
+	display: inline-block;
+	position: absolute;
+	height: 85%;
+	top: 50%;
+	background-color: $accent-color;
+	width: 50%;
+	transition: all 400ms ease;
+}
+
+.switcher {
+	position: relative;
+	z-index: 100;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-basis: 100%;
+}
+
+.indicatorLeft {
+	transform: translate(0, -50%);
+}
+
+.indicatorRight {
+	transform: translate(90%, -50%);
+}

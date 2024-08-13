@@ -1,0 +1,60 @@
+@import "../../../../sass/helper";
+
+.hero {
+	height: calc(100vh - 100px);
+}
+
+.heroInner {
+	display: flex;
+	height: 100%;
+}
+
+.innerInfo,
+.innerImage {
+	flex-basis: 50%;
+	height: 100%;
+}
+
+.innerInfo {
+	flex-basis: 100%;
+	background-color: #ebfcff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0 16px;
+	gap: 50px;
+
+	@include tablet {
+		padding-left: 100px;
+		padding-right: 100px;
+	}
+
+	@include desktop {
+		flex-basis: 50%;
+		padding-left: 150px;
+		padding-right: 70px;
+	}
+}
+
+.search {
+	width: 100%;
+}
+
+.innerImage {
+	display: none;
+
+	@include desktop {
+		display: block;
+		background-image: url("../../../../images/home/hero/hero-bg.webp");
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+
+		@supports not (
+			background-image: url("../../../../images/home/hero/hero-bg.webp")
+		) {
+			background-image: url("../../../../images/home/hero/hero-bg.jpg");
+		}
+	}
+}

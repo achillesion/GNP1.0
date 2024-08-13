@@ -1,0 +1,68 @@
+@import "../../sass/helper";
+
+.button,
+.primary,
+.secondary,
+.buttonFullWidth,
+.deleteFullWidth,
+.delete {
+	display: inline-block;
+	color: $text-color;
+	text-align: center;
+	border-radius: $border-radius;
+	padding: 15px 32px;
+	transition: all 300ms ease;
+	font-size: 16px;
+	white-space: nowrap;
+	transition: all 300ms ease;
+
+	&:disabled {
+		background-color: rgb(206, 206, 206);
+		cursor: no-drop;
+	}
+}
+
+.primary,
+.primaryFullWidth {
+	background-color: $accent-color;
+	padding: 15px 32px;
+	border-radius: $border-radius;
+
+	&:not(:disabled):hover {
+		background: $accent-hover-color;
+	}
+}
+
+.primaryFullWidth {
+	width: 100%;
+	padding: 15px 32px;
+}
+
+.secondary,
+.secondaryFullWidth {
+	background-color: $disabled-color;
+	padding: 15px 32px;
+	border-radius: $border-radius;
+	transition: all 300ms ease;
+
+	&:not(:disabled):hover {
+		background: $disabled-hover-color;
+	}
+}
+
+.deleteFullWidth,
+.delete {
+	padding: 15px 32px;
+	background-color: $error-color;
+	color: #fff;
+
+	&:not(:disabled):hover {
+		background: $error-hover-color;
+	}
+}
+
+.secondaryFullWidth,
+.deleteFullWidth,
+.buttonFullWidth {
+	width: 100%;
+}

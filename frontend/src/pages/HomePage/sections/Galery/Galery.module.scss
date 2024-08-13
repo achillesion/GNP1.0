@@ -1,0 +1,37 @@
+@import "../../../../sass/helper";
+
+.galery {
+	margin-bottom: 30px;
+
+	@include tablet {
+		margin-bottom: 100px;
+	}
+
+	@include desktop {
+		margin-bottom: 130px;
+	}
+}
+
+.title {
+	margin-bottom: 40px;
+
+	@include tablet {
+		margin-bottom: 50px;
+	}
+
+	@include desktop {
+		margin-bottom: 70px;
+	}
+}
+
+.loadMore {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 30px;
+
+	@include desktop {
+		margin-top: 50px;
+	}
+}
+

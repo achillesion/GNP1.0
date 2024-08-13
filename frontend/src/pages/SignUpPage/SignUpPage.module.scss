@@ -1,0 +1,70 @@
+@import "../../sass/helper";
+
+.signUpPage {
+	background-color: $background-color;
+	padding-top: 60px;
+	padding-left: 16px;
+	padding-right: 16px;
+	padding-bottom: 75px;
+	color: $main-color;
+}
+
+.signUpInner {
+	margin: 0 auto;
+	text-align: center;
+	max-width: 657px;
+	width: 100%;
+	background-color: $primary-color;
+	-webkit-box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.4);
+	-moz-box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.4);
+	box-shadow: 0px 4px 24px 0px rgba(0, 0, 0, 0.4);
+	border-radius: 16px;
+	padding: 30px 20px;
+
+	@include tablet {
+		padding: 50px 68px;
+	}
+}
+
+.title {
+	font-size: 32px;
+	font-weight: 500;
+	line-height: calc(39 / 32);
+	text-align: center;
+	margin-bottom: 24px;
+}
+
+.form {
+	margin-bottom: 32px;
+}
+
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	color: $info-color;
+	font-size: 14px;
+	line-height: calc(24 / 14);
+}
+
+.navigation {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.link,
+.navLink {
+	color: $accent-color;
+}
+
+.navLink {
+	text-decoration: underline;
+	font-weight: 500;
+}
+
+.divder {
+	height: 1px;
+	background-color: #f2f2f2;
+}

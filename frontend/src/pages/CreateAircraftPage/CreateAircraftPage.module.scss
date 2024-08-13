@@ -1,0 +1,17 @@
+@import "../../sass/helper";
+
+.title {
+	margin-left: 10px;
+
+	@include desktop {
+		margin-left: 0;
+	}
+}
+
+.divider {
+	margin-bottom: 15px;
+
+	@include desktop {
+		margin-bottom: 30px;
+	}
+}

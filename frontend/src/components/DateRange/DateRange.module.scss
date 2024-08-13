@@ -1,0 +1,28 @@
+@import "../../sass/helper";
+
+.wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.mobileWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.errorTextFrom,
+.errorTextTo {
+	position: absolute;
+	font-size: 12px;
+	bottom: -20px;
+	color: $error-color;
+}
+
+.errorTextFrom {
+	left: 10%;
+}
+
+.errorTextTo {
+	right: 10%;
+}

@@ -1,0 +1,127 @@
+@import "../../../../sass/helper";
+
+.form {
+	padding: 0 10px;
+
+	@include desktop {
+		padding: 0;
+	}
+}
+
+.formBody {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	margin-bottom: 24px;
+
+	@include desktop {
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 50px;
+	}
+}
+
+.content {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+.inputBox {
+	width: 100%;
+	@include tablet {
+		width: 48%;
+	}
+}
+
+.formBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+
+	@include desktop {
+		flex-basis: 100%;
+	}
+}
+
+.file {
+	margin-bottom: 50px;
+}
+
+.description {
+	margin-bottom: 30px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+
+	@include desktop {
+		margin-top: 80px;
+	}
+}
+
+.time {
+	border: 1px solid #ff0000;
+}
+
+.selectWrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.date {
+	margin-bottom: 16px;
+}
+
+.search {
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.errorText {
+	position: absolute;
+	left: 0;
+	bottom: -20px;
+	color: $error-color;
+}
+
+.utilities {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	gap: 5px;
+}
+
+.label {
+	font-size: 15px;
+}
+.imageSection {
+	width: 50%;
+	position:relative,
+}
+.flex {
+	display: flex;
+	margin-bottom: 30px;
+}
+.uploadPhoto {
+	
+	display:flex;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0, .4);
+	color: white;
+	align-items:center;
+	justify-content:center;
+	cursor: pointer;
+	opacity: 0;
+	transition: 300ms;
+	&:hover {
+		opacity: 100,
+	}
+}

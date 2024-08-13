@@ -1,0 +1,116 @@
+@import "../../../../sass/helper";
+
+.table {
+	width: 100%;
+	border-spacing: 0px;
+}
+
+.tableHeader,
+.bodyRow {
+	height: 50px;
+}
+
+.bodyRow {
+	color: $info-color;
+
+	&:not(:last-child) {
+		.bodyItem {
+			border-bottom: 1px solid $disabled-color;
+		}
+	}
+
+	&:last-child {
+		.bodyItem {
+			border-bottom: 1px solid transparent;
+		}
+	}
+
+	&:hover {
+		background-color: $light-color;
+
+		& > .bodyItem {
+			border-bottom: 1px solid $accent-color;
+		}
+	}
+}
+
+.tableHeader {
+	background-color: #fafafa;
+}
+
+.headerRow {
+	border-top-left-radius: $border-radius;
+	border-top-right-radius: $border-radius;
+}
+
+.headerItem,
+.bodyItem {
+	white-space: nowrap;
+
+	&:first-child {
+		padding-left: 18px;
+	}
+
+	&:last-child {
+		padding-right: 18px;
+	}
+}
+
+.bodyItem,
+.headerItem {
+	&:not(:last-child) {
+		padding-right: 10px;
+	}
+}
+
+.headerItem {
+	text-align: left;
+	font-weight: 500;
+	font-size: 13px;
+	line-height: calc(16 / 13);
+}
+
+.actions {
+	display: flex;
+	align-items: center;
+	gap: 3px;
+	gap: 8px;
+
+	@include desktop {
+		gap: 16px;
+	}
+}
+
+.edit {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	gap: 3px;
+}
+
+.underline {
+	width: 100%;
+	height: 1px;
+	background-color: #000;
+	min-width: 18px;
+	border-radius: $border-radius;
+}
+
+.active,
+.complete {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: 100px;
+}
+
+.active {
+	color: $success-color;
+	background-color: $success-bg-color;
+}
+
+.completed {
+	color: $text-color;
+	background-color: $light-color;
+}
