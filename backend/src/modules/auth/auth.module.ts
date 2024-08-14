@@ -30,5 +30,6 @@ import { StorageService } from '../storage/storage.service';
     TokenService,
     StorageService,
   ],
+  exports: [JwtService, TokenService],
 })
 export class AuthModule {}
