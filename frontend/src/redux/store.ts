@@ -87,6 +87,7 @@ import {
   fetchPaymentInfo,
   updatePaymentInfo,
 } from "./payment/operations";
+import chatReducer, { addMessage, setMessages } from "./chat/chatSlice";
 
 import homeReducer, { setHomeModal } from "./home/homeControllSlice";
 
@@ -116,6 +117,7 @@ const reducer = combineReducers({
   reservations: persistReducer(persistConfig, reservationsReducer),
   saveNavigation: persistReducer(persistConfig, saveNavigationReducer),
   payment: persistReducer(persistConfig, paymentReducer),
+  chat: chatReducer,
 });
 
 export const store = configureStore({
@@ -188,4 +190,6 @@ export {
   setReservation,
   clearReservation,
   setHomeModal,
+  addMessage,
+  setMessages,
 };

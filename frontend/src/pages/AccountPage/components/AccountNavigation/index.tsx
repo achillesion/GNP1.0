@@ -8,6 +8,7 @@ import {
 	Profile,
 	Reservations,
 	BillingPaymant,
+	Chat,
 } from "../../../../icons";
 
 export const AccountNavigation: FC = () => {
@@ -88,6 +89,22 @@ export const AccountNavigation: FC = () => {
 							isActive={pathname.includes(GNPRoutes.billingPaymentInfo)}
 						/>
 						<p className={sass.linkText}>Billing & Payment Info</p>
+					</NavLink>
+				</li>
+				<li className={sass.navItem}>
+					<NavLink
+						aria-label="Navigate to chat page"
+						className={
+							pathname.includes(GNPRoutes.chat)
+								? sass.navLinkActive
+								: sass.navLink
+						}
+						to={GNPRoutes.chat}
+					>
+						<Chat
+							isActive={pathname.includes(GNPRoutes.chat)}
+						/>
+						<p className={sass.linkText}>Chat</p>
 					</NavLink>
 				</li>
 			</ul>

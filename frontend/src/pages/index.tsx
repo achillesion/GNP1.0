@@ -18,6 +18,7 @@ import { EditBillingPaymentInfoPage } from "./EditBillingPaymentInfoPage";
 import { CreateBillingPaymentInfoPage } from "./CreateBillingPaymentInfoPage";
 import { SuccessPaymentPage } from "./SuccessPaymentPage";
 import { ErrorPaymentPage } from "./ErrorPaymentPage";
+import { ChatPage } from "./ChatPage";
 
 export {
 	HomePage,
@@ -40,4 +41,5 @@ export {
 	CreateBillingPaymentInfoPage,
 	SuccessPaymentPage,
 	ErrorPaymentPage,
+	ChatPage
 };

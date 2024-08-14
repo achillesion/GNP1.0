@@ -427,3 +427,8 @@ export type CreatePriceValues = {
   unitAmount: number;
   productName: string;
 };
+
+export type Message = {
+  sender: string;
+  message: string;
+};

@@ -19,3 +19,5 @@ export const selectHomeModal = (state: AppState) => state.homeModal;
 
 export const selectHangarReservations = (state: AppState) =>
   state.reservations.hangarReservations;
+
+export const selectChat = (state: AppState) => state.chat;

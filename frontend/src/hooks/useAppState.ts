@@ -9,6 +9,7 @@ import {
   selectSaveNavigation,
   selectPayment,
   selectHomeModal,
+  selectChat,
 } from "../redux/selectors";
 
 export const useAppState = (): AppState => ({
@@ -21,4 +22,5 @@ export const useAppState = (): AppState => ({
   saveNavigation: useSelector(selectSaveNavigation),
   payment: useSelector(selectPayment),
   //   hangarReservations: useSelector(selectHangarReservations),
+  chat: useSelector(selectChat),
 });
