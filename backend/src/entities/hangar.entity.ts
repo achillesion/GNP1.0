@@ -31,6 +31,9 @@ export class Hangar extends BaseEntity {
   @Column({ nullable: true })
   owner: string;
 
+  @Column({ nullable: true })
+  ownerId: string;
+
   @Column({ nullable: false })
   photo: string;
 
