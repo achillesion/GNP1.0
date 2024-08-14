@@ -11,6 +11,7 @@ import { ReservationModule } from './modules/reservation/reservation.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { StripeModule } from './modules/stripe/stripe.module';
+import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { StripeModule } from './modules/stripe/stripe.module';
     StorageModule,
     PaymentModule,
     StripeModule,
+    ChatModule,
   ],
   controllers: [],
   providers: [],
