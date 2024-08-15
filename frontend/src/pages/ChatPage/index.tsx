@@ -2,10 +2,12 @@ import { FC } from "react";
 import { useChatSocket } from "../../hooks/useChatSocket";
 import { useAppState } from "../../hooks";
 import { Message } from "../../d";
+import { useParams } from "react-router-dom";
 
 export const ChatPage: FC = () => {
   const socket = useChatSocket(); // Initialize the socket connection
   const { chat, authenticate } = useAppState();
+  const params = useParams<{ receiverId: string }>();
 
   return (
     <>
@@ -24,10 +26,11 @@ export const ChatPage: FC = () => {
             if (e.key === "Enter") {
               const target = e.target as HTMLInputElement;
               const message: Message = {
-                sender: authenticate.user!.name,
+                sender: authenticate.user!.id,
+                receiver: params.receiverId || "",
                 message: target.value,
               };
-              socket.emit("message", message);
+              socket?.emit("message", message);
               target.value = "";
             }
           }}

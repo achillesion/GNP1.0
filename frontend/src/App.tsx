@@ -209,7 +209,17 @@ function App() {
                     component={<ChatPage />}
                   />
                 }
-              />
+              >
+                <Route
+                  path={`:receiverId`}
+                  element={
+                    <PrivateRoute
+                      redirectTo={GNPRoutes.signIn}
+                      component={<ChatPage />}
+                    />
+                  }
+                />
+              </Route>
             </Route>
             <Route path={GNPRoutes.notFound} element={<NotFoundPage />} />
           </Routes>

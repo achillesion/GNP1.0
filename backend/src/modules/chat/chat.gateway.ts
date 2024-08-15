@@ -11,11 +11,17 @@ import { Socket, Server } from 'socket.io';
 import { UseGuards } from '@nestjs/common';
 import { WsAuthGuard } from '../../common/guards/ws-auth.guard';
 
+interface ChatMessage {
+  sender: string;
+  receiver: string;
+  message: string;
+}
+
 @WebSocketGateway(1111, {
   cors: {
-    origin: 'http://localhost:3001',
+    origin: '*',
     methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   },
 })
@@ -25,13 +31,18 @@ export class ChatGateway
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('ChatGateway');
 
+  private clients = new Map<string, Socket>();
+
   @UseGuards(WsAuthGuard)
   @SubscribeMessage('message')
-  handleMessage(
-    client: Socket,
-    payload: { sender: string; message: string },
-  ): void {
-    this.server.emit('message', payload);
+  handleMessage(client: Socket, payload: ChatMessage): void {
+    const receiverSocket = this.clients.get(payload.receiver);
+
+    client.emit('message', payload);
+
+    if (receiverSocket) {
+      receiverSocket.emit('message', payload);
+    }
   }
 
   afterInit(server: Server) {
@@ -39,10 +50,20 @@ export class ChatGateway
   }
 
   handleConnection(client: Socket, ...args: any[]) {
-    this.logger.log(`Client connected: ${client.id}`);
+    const { sub } = client.handshake.query;
+    if (sub) {
+      this.clients.set(sub as string, client);
+      this.logger.log(`Client connected: ${sub}`);
+    } else {
+      this.logger.warn('Client connected without sub');
+    }
   }
 
   handleDisconnect(client: Socket) {
-    this.logger.log(`Client disconnected: ${client.id}`);
+    const { sub } = client.handshake.query;
+    if (sub) {
+      this.clients.delete(sub as string);
+      this.logger.log(`Client disconnected: ${sub}`);
+    }
   }
 }

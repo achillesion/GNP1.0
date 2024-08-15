@@ -430,5 +430,6 @@ export type CreatePriceValues = {
 
 export type Message = {
   sender: string;
+  receiver: string;
   message: string;
 };
