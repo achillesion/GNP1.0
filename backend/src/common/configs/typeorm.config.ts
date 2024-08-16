@@ -36,6 +36,9 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
         ChatMessage,
         ChatProfile,
       ],
+      migrations: ['/migrations/*{.ts,.js}'],
+      migrationsTableName: '_migrations',
+      migrationsRun: true, // Auto-run migrations
     };
   }
 }
