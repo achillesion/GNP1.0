@@ -125,6 +125,7 @@ export type Utilities = {
 export type Hangar = {
   id: string;
   owner: string;
+  user_id: string;
   title: string;
   doorHeight?: string;
   doorWidth?: string;
@@ -201,6 +202,7 @@ export interface ReservationsState extends BasicState {
 export type CreateHangarValues = Omit<
   Hangar,
   | "owner"
+  | "user_id"
   | "id"
   | "airport"
   | "rating"
@@ -429,7 +431,22 @@ export type CreatePriceValues = {
 };
 
 export type Message = {
-  sender: string;
-  receiver: string;
+  senderId: string;
+  receiverId: string;
   message: string;
+};
+
+export type ChatProfile = {
+  id?: string;
+  lastMessage?: string | null;
+  lastMessageDate?: Date | null;
+  user1?: User;
+  user2?: User;
+  user: User;
+};
+
+export type ChatState = {
+  selectedProfile: ChatProfile | null;
+  messages: Message[];
+  chatProfiles: ChatProfile[];
 };

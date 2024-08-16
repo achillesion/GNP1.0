@@ -1,12 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Message } from "../../d";
-
-interface ChatState {
-  messages: Message[];
-}
+import { ChatState, Message } from "../../d";
 
 const initialState: ChatState = {
+  selectedProfile: null,
   messages: [],
+  chatProfiles: [],
 };
 
 const chatSlice = createSlice({
@@ -19,8 +17,23 @@ const chatSlice = createSlice({
     setMessages: (state, action: PayloadAction<Message[]>) => {
       state.messages = action.payload;
     },
+    addChatProfile: (state, action: PayloadAction<any>) => {
+      state.chatProfiles.push(action.payload);
+    },
+    setChatProfiles: (state, action: PayloadAction<any[]>) => {
+      state.chatProfiles = action.payload;
+    },
+    setSelectedProfile: (state, action: PayloadAction<any>) => {
+      state.selectedProfile = action.payload;
+    },
   },
 });
 
-export const { addMessage, setMessages } = chatSlice.actions;
+export const {
+  addMessage,
+  setMessages,
+  addChatProfile,
+  setChatProfiles,
+  setSelectedProfile,
+} = chatSlice.actions;
 export default chatSlice.reducer;

@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "./useAppDispatch";
 import { io, Socket } from "socket.io-client";
-import { addMessage } from "../redux/chat/chatSlice";
+import {
+  addMessage,
+  setChatProfiles,
+  setMessages,
+  setSelectedProfile,
+} from "../redux/chat/chatSlice";
 import { useAppState } from "./useAppState";
-import { Message } from "../d";
+import { ChatProfile, Message, User } from "../d";
 
 const { REACT_APP_SOCKET_URL } = process.env;
 
 export const useChatSocket = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { tokens, user } = useAppState().authenticate;
   const [socket, setSocket] = useState<Socket | null>(null);
 
@@ -34,9 +39,29 @@ export const useChatSocket = () => {
         console.log("Socket disconnected:", user?.name, reason);
       });
 
-      newSocket.on("message", (payload: Message) =>
-        dispatch(addMessage(payload))
-      );
+      newSocket.on("chatProfiles", (profiles) => {
+        console.log("Chat Profiles:", profiles);
+        dispatch(setChatProfiles(profiles));
+      });
+
+      newSocket.on("userProfile", (profile: User) => {
+        const chatProfile: ChatProfile = {
+          id: "to be generated",
+          user: profile,
+          lastMessage: null,
+          lastMessageDate: null,
+        };
+        dispatch(setSelectedProfile(chatProfile));
+        newSocket.emit("getChatHistory", profile.id);
+      });
+
+      newSocket.on("chatHistory", (history) => {
+        dispatch(setMessages(history));
+      });
+
+      newSocket.on("message", (payload: Message) => {
+        dispatch(addMessage(payload));
+      });
 
       setSocket(newSocket);
 
