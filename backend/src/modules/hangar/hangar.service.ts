@@ -77,7 +77,7 @@ export class HangarService {
       airport,
       photo: url,
       owner: user.result.data.name,
-      ownerId: user.result.data.id,
+      user_id: user.result.data.id,
       user: user.result.data,
     };
     const entity = this.hangarRepository.create(newHangar);

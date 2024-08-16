@@ -32,7 +32,7 @@ export class Hangar extends BaseEntity {
   owner: string;
 
   @Column({ nullable: true })
-  ownerId: string;
+  user_id: string;
 
   @Column({ nullable: false })
   photo: string;
