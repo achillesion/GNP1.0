@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Reservation } from './reservation.entity';
 import { Payment } from './payment.entity';
+import { ChatMessage } from './chat-message.entity';
 
 @Entity('users')
 export class User extends BaseEntity {
@@ -57,4 +58,10 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Reservation, (reservation) => reservation.user)
   reservations: Reservation;
+
+  @OneToMany(() => ChatMessage, (message) => message.sender)
+  sentMessages: ChatMessage[];
+
+  @OneToMany(() => ChatMessage, (message) => message.receiver)
+  receivedMessages: ChatMessage[];
 }

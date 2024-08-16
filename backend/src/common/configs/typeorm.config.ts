@@ -8,6 +8,8 @@ import { User } from '../../entities/user.entity';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { Payment } from 'src/entities/payment.entity';
+import { ChatMessage } from 'src/entities/chat-message.entity';
+import { ChatProfile } from 'src/entities/chat-profile.entity';
 
 @Injectable()
 export class TypeOrmConfig implements TypeOrmOptionsFactory {
@@ -31,6 +33,8 @@ export class TypeOrmConfig implements TypeOrmOptionsFactory {
         Intagibles,
         Airport,
         Payment,
+        ChatMessage,
+        ChatProfile,
       ],
     };
   }

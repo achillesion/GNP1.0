@@ -11,7 +11,8 @@ import { ReservationModule } from './modules/reservation/reservation.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { PaymentModule } from './modules/payment/payment.module';
 import { StripeModule } from './modules/stripe/stripe.module';
-import { ChatModule } from './modules/chat/chat.module';
+import { ChatMessageModule } from './modules/chat_message/chat_message.module';
+import { ChatProfile } from './entities/chat-profile.entity';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { ChatModule } from './modules/chat/chat.module';
     StorageModule,
     PaymentModule,
     StripeModule,
-    ChatModule,
+    ChatMessageModule,
+    ChatProfile,
   ],
   controllers: [],
   providers: [],
