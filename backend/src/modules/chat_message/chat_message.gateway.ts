@@ -39,7 +39,7 @@ export class ChatGateway
   @UseGuards(WsAuthGuard)
   @SubscribeMessage('message')
   async handleMessage(client: Socket, payload: ChatMessageDto): Promise<void> {
-    await this.chatService.createChatMessage(
+    const message = await this.chatService.createChatMessage(
       client.handshake.query.sub as string,
       payload.receiverId,
       payload.message,
@@ -52,10 +52,10 @@ export class ChatGateway
     );
 
     const receiverSocket = this.clients.get(payload.receiverId);
-    client.emit('message', payload);
+    client.emit('message', message);
 
     if (receiverSocket) {
-      receiverSocket.emit('message', payload);
+      receiverSocket.emit('message', message);
     }
   }
 

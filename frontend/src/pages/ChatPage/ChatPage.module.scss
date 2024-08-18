@@ -1,0 +1,163 @@
+@import "../../sass/helper";
+
+.top {
+    margin-top: 60px;
+    margin-bottom: 30px;
+
+    @include desktop {
+        margin-top: 40px;
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+}
+
+.title {
+    margin-left: 10px;
+
+    @include desktop {
+        margin-left: 0;
+    }
+}
+
+.chatBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include desktop {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+    }
+}
+
+.chatCard {
+    flex-basis: 100%;
+
+    @include desktop {
+        flex-basis: calc(50% - 10px);
+    }
+}
+
+.chatBody {
+    padding: 0 20px 20px;
+
+    @include desktop {
+        padding: 0 40px 40px;
+    }
+}
+
+.userName {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: calc(22 / 18);
+    margin-bottom: 14px;
+}
+
+.infoList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    line-height: calc(17 / 14);
+    color: $info-color;
+}
+
+.formBody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+}
+
+.default {
+    padding: 6px 12px;
+    margin-left: 20px;
+    color: $success-color;
+    background-color: $success-bg-color;
+    border-radius: 100px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.addNewCard {
+    display: flex;
+
+    &>div {
+        margin-left: auto;
+    }
+}
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    gap: 3px;
+}
+
+.underline {
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    min-width: 18px;
+    border-radius: $border-radius;
+}
+
+.actionsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.chatSelected {
+    display: flex;
+    align-items: center;
+}
+
+.chatSelectedBody {
+    margin-left: 15px;
+}
+
+.chatSelectedStatus {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: 888;
+    margin-top: 5px;
+}
+
+.chatSelectedIndicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.chatMessagesSkeleton {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 1rem 24px;
+}
+
+.chatProfilesSkeleton {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 1rem 0;
+}

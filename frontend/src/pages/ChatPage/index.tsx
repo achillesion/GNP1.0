@@ -1,31 +1,51 @@
-import { FC } from "react";
-import { useChatSocket } from "../../hooks/useChatSocket";
-import { useAppState } from "../../hooks";
-import { Message } from "../../d";
+import sass from "./ChatPage.module.scss";
+import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { setSelectedProfile } from "../../redux/chat/chatSlice";
+import { useFormik } from "formik";
+import { useAppDispatch, useAppState, useChatSocket } from "../../hooks";
+import { Search } from "../../icons";
+import { Divider } from "../../components";
+import { ChatProfilesCard } from "./components/ChatProfilesCard";
+import { SearchChatProfileValues } from "../../d";
+import {
+  setLoadingMessages,
+  setLoadingProfile,
+  setLoadingProfiles,
+  setSelectedProfile,
+} from "../../redux/chat/chatSlice";
+import { validationSchema } from "./components/ChatProfilesCard/SearchChatProfilesInput/validationSchema";
+import { SearchChatProfilesInput } from "./components/ChatProfilesCard/SearchChatProfilesInput";
+import { ChatProfilesList } from "./components/ChatProfilesCard/ChatProfilesList";
+import { ChatMessagesCard } from "./components/ChatMessagesCard";
+import { Avatar, Skeleton, Space } from "antd";
+import { ChatMessagesList } from "./components/ChatMessagesCard/ChatMessagesList";
+
+const initialValues: SearchChatProfileValues = {
+  name: "",
+};
+
+const { REACT_APP_IMAGE_BASIC_PATH } = process.env;
 
 export const ChatPage: FC = () => {
-  const socket = useChatSocket(); // Initialize the socket connection
+  const { socket, getChatProfiles, getChatHistory, getUserProfile } =
+    useChatSocket(); // Initialize the socket connection
+  const chat = useAppState().chat;
   const dispatch = useAppDispatch();
-  const { chat, authenticate } = useAppState();
   const params = useParams<{ receiverId: string }>();
 
-  function getChatProfiles() {
-    if (socket) {
-      socket?.emit("getChatProfiles");
-    }
-  }
+  const onSubmit = async (values: SearchChatProfileValues) => {
+    // TODO: Implement search chat profiles
+  };
 
-  function getChatHistory() {
-    if (socket) {
-      const receiverId = chat.selectedProfile?.user.id;
-      socket?.emit("getChatHistory", receiverId);
-    }
-  }
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
 
   useEffect(() => {
     if (socket) {
+      dispatch(setLoadingProfiles(true));
       getChatProfiles();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,7 +53,8 @@ export const ChatPage: FC = () => {
 
   useEffect(() => {
     if (socket && chat.selectedProfile) {
-      getChatHistory();
+      dispatch(setLoadingMessages(true));
+      getChatHistory(chat.selectedProfile.user.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat.selectedProfile]);
@@ -47,77 +68,105 @@ export const ChatPage: FC = () => {
       if (profile) {
         dispatch(setSelectedProfile(profile));
       } else {
-        socket?.emit("getUserProfile", params.receiverId);
+        dispatch(setLoadingProfile(true));
+        getUserProfile(params.receiverId);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.receiverId, socket]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(setSelectedProfile(null));
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
-      <div>
-        <div style={{ marginBottom: "1.5rem" }}>
-          <h2>Chat Profiles</h2>
-          <ul>
-            {chat.chatProfiles.length ? (
-              chat.chatProfiles.map((profile) => (
-                <li
-                  key={profile.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    dispatch(setSelectedProfile(profile));
-                  }}
-                >
-                  {profile.user.name} - {profile.lastMessage}
-                </li>
-              ))
-            ) : (
-              <li>No chat profiles found</li>
-            )}
-          </ul>
-        </div>
-        {!!chat.selectedProfile && (
-          <>
-            <div>
-              {<h2>Selected Profile: {chat.selectedProfile?.user.name}</h2>}
-              <h2>Chat History</h2>
-              <ul>
-                {chat.messages.length ? (
-                  chat.messages.map((message: Message, index) => {
-                    const senderName =
-                      message.senderId === authenticate.user?.id
-                        ? "You"
-                        : chat.selectedProfile?.user.name;
-                    return (
-                      <li key={index}>
-                        <strong>{senderName}</strong>: {message.message}
-                      </li>
-                    );
-                  })
+      <div className={sass.wrapper}>
+        <>
+          <div className={sass.top}>
+            <h2 className={sass.title}>Messenger</h2>
+            <div style={{ marginBottom: "16px" }}>
+              <Divider />
+            </div>
+          </div>
+          <div className={sass.chatBody}>
+            <div className={sass.chatCard}>
+              <ChatProfilesCard title="Chats">
+                <SearchChatProfilesInput
+                  placeholder="Search chats"
+                  icon={<Search />}
+                  label=""
+                  formik={formik}
+                />
+                <Divider />
+                {chat.isLoadingProfiles ? (
+                  <div className={sass.chatProfilesSkeleton}>
+                    <Skeleton.Button block active size="large" />
+                    <Skeleton.Button block active size="large" />
+                    <Skeleton.Button block active size="large" />
+                    <Skeleton.Button block active size="large" />
+                    <Skeleton.Button block active size="large" />
+                  </div>
+                ) : chat.chatProfiles.length ? (
+                  <ChatProfilesList />
                 ) : (
-                  <li>No chat history found</li>
+                  <p>No chats you did...</p>
                 )}
-              </ul>
+              </ChatProfilesCard>
             </div>
-            <div>
-              <input
-                type="text"
-                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (e.key === "Enter") {
-                    const target = e.target as HTMLInputElement;
-                    const message: Message = {
-                      senderId: authenticate.user!.id,
-                      receiverId: chat.selectedProfile!.user.id,
-                      message: target.value,
-                    };
-                    socket?.emit("message", message);
-                    target.value = "";
+            {!!chat.selectedProfile && (
+              <div className={sass.chatCard}>
+                <ChatMessagesCard
+                  title={
+                    chat.isLoadingProfile ? (
+                      <Space style={{ padding: "5px 0" }}>
+                        <Skeleton.Avatar active />
+                        <Skeleton.Input active />
+                      </Space>
+                    ) : (
+                      <div className={sass.chatSelected}>
+                        <Avatar
+                          size={50}
+                          src={
+                            chat.selectedProfile?.user.avatar
+                              ? `${REACT_APP_IMAGE_BASIC_PATH}${chat.selectedProfile?.user.avatar}`
+                              : "https://gravatar.com/avatar?s=300&d=mp"
+                          }
+                        />
+                        <div className={sass.chatSelectedBody}>
+                          <div className={sass.title}>
+                            {chat.selectedProfile.user.name}
+                          </div>
+                          <div className={sass.chatSelectedStatus}>
+                            <p
+                              className={sass.chatSelectedIndicator}
+                              style={{ backgroundColor: "#00ff00" }}
+                            ></p>
+                            Online
+                          </div>
+                        </div>
+                      </div>
+                    )
                   }
-                }}
-              />
-            </div>
-          </>
-        )}
+                >
+                  {chat.isLoadingMessages ? (
+                    <div className={sass.chatMessagesSkeleton}>
+                      <Skeleton avatar active paragraph={{ rows: 1 }} />
+                      <Skeleton avatar active paragraph={{ rows: 1 }} />
+                      <Skeleton avatar active paragraph={{ rows: 1 }} />
+                      <Skeleton avatar active paragraph={{ rows: 1 }} />
+                    </div>
+                  ) : (
+                    <ChatMessagesList />
+                  )}
+                </ChatMessagesCard>
+              </div>
+            )}
+          </div>
+        </>
       </div>
     </>
   );

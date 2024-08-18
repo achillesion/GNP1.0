@@ -20,6 +20,9 @@ import { Email } from "./Email";
 import { Location } from "./Location";
 import { Phone } from "./Phone";
 import { Chat } from "./Chat";
+import { SingleTick } from "./SingleTick";
+import { DoubleTick } from "./DoubleTick";
+import { Send } from "./Send";
 
 export {
   DropArrow,
@@ -44,4 +47,7 @@ export {
   Location,
   Phone,
   Chat,
+  SingleTick,
+  DoubleTick,
+  Send,
 };

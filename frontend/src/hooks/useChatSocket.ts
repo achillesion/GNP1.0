@@ -4,11 +4,14 @@ import { io, Socket } from "socket.io-client";
 import {
   addMessage,
   setChatProfiles,
+  setLoadingMessages,
+  setLoadingProfile,
+  setLoadingProfiles,
   setMessages,
   setSelectedProfile,
 } from "../redux/chat/chatSlice";
 import { useAppState } from "./useAppState";
-import { ChatProfile, Message, User } from "../d";
+import { ChatProfile, Message, MessagePayload, User } from "../d";
 
 const { REACT_APP_SOCKET_URL } = process.env;
 
@@ -16,6 +19,24 @@ export const useChatSocket = () => {
   const dispatch = useAppDispatch();
   const { tokens, user } = useAppState().authenticate;
   const [socket, setSocket] = useState<Socket | null>(null);
+
+  // Emmitters
+
+  function getChatProfiles() {
+    socket?.emit("getChatProfiles");
+  }
+
+  function getChatHistory(receiverId: string) {
+    socket?.emit("getChatHistory", receiverId);
+  }
+
+  function getUserProfile(userId: string) {
+    socket?.emit("getUserProfile", userId);
+  }
+
+  function sendMessage(payload: MessagePayload) {
+    socket?.emit("message", payload);
+  }
 
   useEffect(() => {
     if (!socket) {
@@ -31,6 +52,7 @@ export const useChatSocket = () => {
         }
       );
 
+      // Listners
       newSocket.on("connect", () => {
         console.log("Socket connected:", user?.name);
       });
@@ -40,8 +62,8 @@ export const useChatSocket = () => {
       });
 
       newSocket.on("chatProfiles", (profiles) => {
-        console.log("Chat Profiles:", profiles);
         dispatch(setChatProfiles(profiles));
+        dispatch(setLoadingProfiles(false));
       });
 
       newSocket.on("userProfile", (profile: User) => {
@@ -52,11 +74,12 @@ export const useChatSocket = () => {
           lastMessageDate: null,
         };
         dispatch(setSelectedProfile(chatProfile));
-        newSocket.emit("getChatHistory", profile.id);
+        dispatch(setLoadingProfile(false));
       });
 
       newSocket.on("chatHistory", (history) => {
         dispatch(setMessages(history));
+        dispatch(setLoadingMessages(false));
       });
 
       newSocket.on("message", (payload: Message) => {
@@ -70,7 +93,14 @@ export const useChatSocket = () => {
         newSocket.disconnect();
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, user?.name, user?.id, tokens?.accessToken]);
 
-  return socket;
+  return {
+    socket,
+    getChatProfiles,
+    getChatHistory,
+    getUserProfile,
+    sendMessage,
+  };
 };

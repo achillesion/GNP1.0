@@ -1,0 +1,20 @@
+@import "../../../../../sass/helper";
+
+.listWrapper {
+    max-height: 400px;
+    min-height: 400px;
+    overflow-y: auto;
+}
+
+.itemRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+}
+
+.title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: calc(24 / 20);
+}

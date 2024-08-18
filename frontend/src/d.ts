@@ -430,23 +430,38 @@ export type CreatePriceValues = {
   productName: string;
 };
 
-export type Message = {
+export type MessagePayload = {
   senderId: string;
   receiverId: string;
   message: string;
 };
 
+export type Message = {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  message: string;
+  createdAt: string;
+};
+
 export type ChatProfile = {
   id?: string;
   lastMessage?: string | null;
-  lastMessageDate?: Date | null;
+  lastMessageDate?: string | null;
   user1?: User;
   user2?: User;
   user: User;
 };
 
 export type ChatState = {
+  isLoadingProfiles: boolean;
+  isLoadingMessages: boolean;
+  isLoadingProfile: boolean;
   selectedProfile: ChatProfile | null;
   messages: Message[];
   chatProfiles: ChatProfile[];
+};
+
+export type SearchChatProfileValues = {
+  name: string;
 };
