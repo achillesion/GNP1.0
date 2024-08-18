@@ -87,7 +87,20 @@ import {
   fetchPaymentInfo,
   updatePaymentInfo,
 } from "./payment/operations";
-import chatReducer, { addMessage, setMessages } from "./chat/chatSlice";
+import chatReducer, {
+  addMessage,
+  updateMessageStatus,
+  setMessages,
+  addChatProfile,
+  setChatProfiles,
+  setSelectedProfile,
+  updateChatProfile,
+  setLoadingProfiles,
+  setLoadingMessages,
+  setLoadingProfile,
+  setActiveUsers,
+  updateActiveUser,
+} from "./chat/chatSlice";
 
 import homeReducer, { setHomeModal } from "./home/homeControllSlice";
 
@@ -191,5 +204,15 @@ export {
   clearReservation,
   setHomeModal,
   addMessage,
+  updateMessageStatus,
   setMessages,
+  addChatProfile,
+  setChatProfiles,
+  setSelectedProfile,
+  updateChatProfile,
+  setLoadingProfiles,
+  setLoadingMessages,
+  setLoadingProfile,
+  setActiveUsers,
+  updateActiveUser,
 };

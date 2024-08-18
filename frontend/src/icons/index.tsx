@@ -23,6 +23,7 @@ import { Chat } from "./Chat";
 import { SingleTick } from "./SingleTick";
 import { DoubleTick } from "./DoubleTick";
 import { Send } from "./Send";
+import { Error } from "./Error";
 
 export {
   DropArrow,
@@ -50,4 +51,5 @@ export {
   SingleTick,
   DoubleTick,
   Send,
+  Error,
 };

@@ -430,18 +430,13 @@ export type CreatePriceValues = {
   productName: string;
 };
 
-export type MessagePayload = {
-  senderId: string;
-  receiverId: string;
-  message: string;
-};
-
 export type Message = {
   id: string;
   senderId: string;
   receiverId: string;
   message: string;
   createdAt: string;
+  status: "SENDING" | "SENT" | "FAILED";
 };
 
 export type ChatProfile = {
@@ -453,6 +448,10 @@ export type ChatProfile = {
   user: User;
 };
 
+export type UserStatus = "ONLINE" | "OFFLINE" | "AWAY";
+export type UserStatusPayload = { id: string; status: UserStatus };
+export type ActiveUsers = { [key: string]: UserStatus };
+
 export type ChatState = {
   isLoadingProfiles: boolean;
   isLoadingMessages: boolean;
@@ -460,6 +459,7 @@ export type ChatState = {
   selectedProfile: ChatProfile | null;
   messages: Message[];
   chatProfiles: ChatProfile[];
+  activeUsers: ActiveUsers;
 };
 
 export type SearchChatProfileValues = {

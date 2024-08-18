@@ -13,9 +13,11 @@ import { WsAuthGuard } from '../../common/guards/ws-auth.guard';
 import { ChatService } from './chat_message.service';
 
 interface ChatMessageDto {
+  id: string;
   senderId: string;
   receiverId: string;
   message: string;
+  createdAt: string;
 }
 
 @WebSocketGateway(1111, {
@@ -43,19 +45,23 @@ export class ChatGateway
       client.handshake.query.sub as string,
       payload.receiverId,
       payload.message,
+      payload.createdAt,
     );
 
-    await this.chatService.updateChatProfile(
+    const updatedChatProfile = await this.chatService.updateChatProfile(
       client.handshake.query.sub as string,
       payload.receiverId,
       payload.message,
     );
 
     const receiverSocket = this.clients.get(payload.receiverId);
-    client.emit('message', message);
+
+    client.emit('chatProfile', updatedChatProfile);
+    client.emit('message', { ...message, id: payload.id });
 
     if (receiverSocket) {
       receiverSocket.emit('message', message);
+      receiverSocket.emit('chatProfile', updatedChatProfile);
     }
   }
 
@@ -88,6 +94,15 @@ export class ChatGateway
     client.emit('chatHistory', history);
   }
 
+  @UseGuards(WsAuthGuard)
+  @SubscribeMessage('getActiveUsers')
+  handleGetActiveUsers(client: Socket) {
+    const modifiedMap = new Map(
+      Array.from(this.clients.keys()).map((id) => [id, 'ONLINE']),
+    );
+    client.emit('activeUsers', Array.from(modifiedMap));
+  }
+
   afterInit(server: Server) {
     this.logger.log('Socket Initialized');
   }
@@ -97,8 +112,11 @@ export class ChatGateway
     if (sub) {
       this.clients.set(sub as string, client);
       this.logger.log(`Client connected: ${sub}`);
+      this.logger.log(`Total clients: ${this.clients.size}`);
+      this.server.emit('userStatus', { id: sub, status: 'ONLINE' });
     } else {
       this.logger.warn('Client connected without sub');
+      this.logger.log(`Total clients: ${this.clients.size}`);
     }
   }
 
@@ -107,6 +125,8 @@ export class ChatGateway
     if (sub) {
       this.clients.delete(sub as string);
       this.logger.log(`Client disconnected: ${sub}`);
+      this.logger.log(`Total clients: ${this.clients.size}`);
+      this.server.emit('userStatus', { id: sub, status: 'OFFLINE' });
     }
   }
 }

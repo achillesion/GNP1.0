@@ -26,11 +26,13 @@ export class ChatService {
     senderId: string,
     receiverId: string,
     message: string,
+    createdAt: string,
   ): Promise<ChatMessage> {
     const chatMessage = new ChatMessage();
     chatMessage.senderId = senderId;
     chatMessage.receiverId = receiverId;
     chatMessage.message = message;
+    chatMessage.createdAt = new Date(createdAt);
     return this.chatMessageRepository.save(chatMessage);
   }
 
@@ -84,7 +86,16 @@ export class ChatService {
         '(profile.user1Id = :sender AND profile.user2Id = :receiver) OR (profile.user1Id = :receiver AND profile.user2Id = :sender)',
         { sender, receiver },
       )
-      .getOne();
+      .leftJoinAndSelect('profile.user1', 'user1')
+      .leftJoinAndSelect('profile.user2', 'user2')
+      .getOne()
+      .then((profile) => {
+        const data = JSON.parse(JSON.stringify(profile));
+        data.user = data.user1.id === sender ? data.user2 : data.user1;
+        delete data.user1;
+        delete data.user2;
+        return data;
+      });
 
     if (!chatProfile) {
       chatProfile = new ChatProfile();
@@ -99,6 +110,6 @@ export class ChatService {
     chatProfile.lastMessage = message;
     chatProfile.lastMessageDate = new Date();
 
-    await this.chatProfileRepository.save(chatProfile);
+    return await this.chatProfileRepository.save(chatProfile);
   }
 }

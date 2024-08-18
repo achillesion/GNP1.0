@@ -3,32 +3,38 @@ import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppState, useChatSocket } from "../../hooks";
+import { useSocket } from "../../hooks/useChatSocket";
 import { Search } from "../../icons";
 import { Divider } from "../../components";
 import { ChatProfilesCard } from "./components/ChatProfilesCard";
 import { SearchChatProfileValues } from "../../d";
-import {
-  setLoadingMessages,
-  setLoadingProfile,
-  setLoadingProfiles,
-  setSelectedProfile,
-} from "../../redux/chat/chatSlice";
 import { validationSchema } from "./components/ChatProfilesCard/SearchChatProfilesInput/validationSchema";
 import { SearchChatProfilesInput } from "./components/ChatProfilesCard/SearchChatProfilesInput";
 import { ChatProfilesList } from "./components/ChatProfilesCard/ChatProfilesList";
 import { ChatMessagesCard } from "./components/ChatMessagesCard";
 import { Avatar, Skeleton, Space } from "antd";
 import { ChatMessagesList } from "./components/ChatMessagesCard/ChatMessagesList";
+import {
+  setLoadingMessages,
+  setLoadingProfile,
+  setLoadingProfiles,
+  setSelectedProfile,
+} from "../../redux/store";
 
 const initialValues: SearchChatProfileValues = {
   name: "",
 };
 
+const USER_STATUS_COLOR_MAP = {
+  ONLINE: "#00ff00",
+  OFFLINE: "#ff0000",
+  AWAY: "#ffcc00",
+};
+
 const { REACT_APP_IMAGE_BASIC_PATH } = process.env;
 
 export const ChatPage: FC = () => {
-  const { socket, getChatProfiles, getChatHistory, getUserProfile } =
-    useChatSocket(); // Initialize the socket connection
+  const socket = useChatSocket(); // Initialize the socket connection
   const chat = useAppState().chat;
   const dispatch = useAppDispatch();
   const params = useParams<{ receiverId: string }>();
@@ -46,7 +52,8 @@ export const ChatPage: FC = () => {
   useEffect(() => {
     if (socket) {
       dispatch(setLoadingProfiles(true));
-      getChatProfiles();
+      socket.emit("getChatProfiles");
+      socket.emit("getActiveUsers");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket]);
@@ -54,7 +61,7 @@ export const ChatPage: FC = () => {
   useEffect(() => {
     if (socket && chat.selectedProfile) {
       dispatch(setLoadingMessages(true));
-      getChatHistory(chat.selectedProfile.user.id);
+      socket.emit("getChatHistory", chat.selectedProfile.user.id);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chat.selectedProfile]);
@@ -69,7 +76,7 @@ export const ChatPage: FC = () => {
         dispatch(setSelectedProfile(profile));
       } else {
         dispatch(setLoadingProfile(true));
-        getUserProfile(params.receiverId);
+        socket?.emit("getUserProfile", params.receiverId);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -143,9 +150,17 @@ export const ChatPage: FC = () => {
                           <div className={sass.chatSelectedStatus}>
                             <p
                               className={sass.chatSelectedIndicator}
-                              style={{ backgroundColor: "#00ff00" }}
+                              style={{
+                                backgroundColor:
+                                  USER_STATUS_COLOR_MAP[
+                                    chat.activeUsers[
+                                      chat.selectedProfile.user.id
+                                    ] || "OFFLINE"
+                                  ],
+                              }}
                             ></p>
-                            Online
+                            {chat.activeUsers[chat.selectedProfile.user.id] ||
+                              "OFFLINE"}
                           </div>
                         </div>
                       </div>

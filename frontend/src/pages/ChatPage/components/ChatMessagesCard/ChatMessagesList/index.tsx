@@ -1,18 +1,27 @@
 import { FC, useState } from "react";
 import {
+  useAppDispatch,
   useAppState,
   useChatScroll,
   useChatSocket,
 } from "../../../../../hooks";
-import { Message, MessagePayload } from "../../../../../d";
+import { Message } from "../../../../../d";
 import { Avatar, Divider, Input } from "antd";
-import { Send } from "../../../../../icons";
+import { Clock, DoubleTick, Send, Error } from "../../../../../icons";
+import { addMessage } from "../../../../../redux/store";
 
 const { REACT_APP_IMAGE_BASIC_PATH } = process.env;
 
+const MESSAGE_STATUS = {
+  SENDING: <Clock />,
+  SENT: <DoubleTick />,
+  FAILED: <Error />,
+};
+
 export const ChatMessagesList: FC = () => {
   const { chat, authenticate } = useAppState();
-  const { sendMessage } = useChatSocket();
+  const dispatch = useAppDispatch();
+  const socket = useChatSocket();
   const chatScrollRef = useChatScroll(chat.messages);
   const [messageText, setMessageText] = useState<string>("");
 
@@ -55,36 +64,49 @@ export const ChatMessagesList: FC = () => {
                   style={{
                     display: "flex",
                     alignItems: "center",
+                    justifyContent: "space-between",
                   }}
                 >
-                  <Avatar
-                    size={40}
-                    src={
-                      senderName === "You"
-                        ? `${REACT_APP_IMAGE_BASIC_PATH}${authenticate.user?.avatar}`
-                        : chat.selectedProfile?.user.avatar
-                        ? `${REACT_APP_IMAGE_BASIC_PATH}${chat.selectedProfile?.user.avatar}`
-                        : "https://gravatar.com/avatar?s=300&d=mp"
-                    }
-                  />
-                  <p
+                  <div
                     style={{
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                      marginLeft: "16px",
+                      display: "flex",
+                      alignItems: "center",
                     }}
                   >
-                    {senderName}
-                  </p>
-                  <p
-                    style={{
-                      fontWeight: "300",
-                      marginLeft: "8px",
-                      color: "#666668",
-                    }}
-                  >
-                    {formatDate(message.createdAt)}
-                  </p>
+                    <Avatar
+                      size={40}
+                      src={
+                        senderName === "You"
+                          ? `${REACT_APP_IMAGE_BASIC_PATH}${authenticate.user?.avatar}`
+                          : chat.selectedProfile?.user.avatar
+                          ? `${REACT_APP_IMAGE_BASIC_PATH}${chat.selectedProfile?.user.avatar}`
+                          : "https://gravatar.com/avatar?s=300&d=mp"
+                      }
+                    />
+                    <p
+                      style={{
+                        fontSize: "1rem",
+                        fontWeight: "bold",
+                        marginLeft: "16px",
+                      }}
+                    >
+                      {senderName}
+                    </p>
+                    <p
+                      style={{
+                        fontWeight: "300",
+                        marginLeft: "8px",
+                        color: "#666668",
+                      }}
+                    >
+                      {formatDate(message.createdAt)}
+                    </p>
+                  </div>
+                  <span style={{ color: "#666668" }}>
+                    {message.status
+                      ? MESSAGE_STATUS[message.status]
+                      : MESSAGE_STATUS["SENT"]}
+                  </span>
                 </div>
                 <p style={{ marginLeft: "56px" }}>{message.message}</p>
               </div>
@@ -117,12 +139,16 @@ export const ChatMessagesList: FC = () => {
           }
           onPressEnter={(e: React.KeyboardEvent<HTMLInputElement>) => {
             const target = e.target as HTMLInputElement;
-            const message: MessagePayload = {
+            const message: Message = {
+              id: crypto.randomUUID(), // This is not for adding to the database, just for the frontend
               senderId: authenticate.user!.id,
               receiverId: chat.selectedProfile!.user.id,
               message: target.value,
+              createdAt: new Date().toISOString(),
+              status: "SENDING",
             };
-            sendMessage(message);
+            dispatch(addMessage(message));
+            socket?.emit("message", message);
             setMessageText("");
           }}
         />

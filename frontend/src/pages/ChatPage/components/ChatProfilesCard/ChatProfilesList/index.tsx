@@ -4,7 +4,7 @@ import { Avatar, List } from "antd";
 import { FormatterDate } from "../../../../../utils";
 import { DoubleTick } from "../../../../../icons/DoubleTick";
 import { useAppDispatch, useAppState } from "../../../../../hooks";
-import { setSelectedProfile } from "../../../../../redux/chat/chatSlice";
+import { setSelectedProfile } from "../../../../../redux/store";
 
 const { REACT_APP_IMAGE_BASIC_PATH } = process.env;
 
