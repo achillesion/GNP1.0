@@ -3,7 +3,6 @@ import { FC, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppState, useChatSocket } from "../../hooks";
-import { useSocket } from "../../hooks/useChatSocket";
 import { Search } from "../../icons";
 import { Divider } from "../../components";
 import { ChatProfilesCard } from "./components/ChatProfilesCard";
