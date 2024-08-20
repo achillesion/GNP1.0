@@ -9,6 +9,16 @@ on:
     branches:
       - Feature-Naeem-101
 
+env:
+  NODE_VERSION: "20.x"
+
+  REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
+  REACT_APP_SOCKET_URL: ${{ secrets.REACT_APP_SOCKET_URL }}
+  REACT_APP_IMAGE_BASIC_PATH: ${{ secrets.REACT_APP_IMAGE_BASIC_PATH }}
+  GENERATE_SOURCEMAP: false
+  REACT_APP_STRIPE_PUBLIC_KEY: ${{ secrets.REACT_APP_STRIPE_PUBLIC_KEY }}
+  REACT_APP_GOOGLE_CLOUD_API_KEY: ${{ secrets.REACT_APP_GOOGLE_CLOUD_API_KEY }}
+
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
