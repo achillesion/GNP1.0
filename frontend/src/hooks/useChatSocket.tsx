@@ -29,10 +29,9 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
 
   const socket = useMemo(() => {
     if (user && tokens?.accessToken) {
+      const SOCKET_URL = REACT_APP_SOCKET_URL || "http://localhost:3000/socket";
       return SocketManager.getInstance(
-        REACT_APP_SOCKET_URL
-          ? `${REACT_APP_SOCKET_URL}?name=${user.name}&sub=${user.id}`
-          : `http://localhost:1111?name=${user.name}&sub=${user.id}`,
+        `${SOCKET_URL}?name=${user.name}&sub=${user.id}`,
         {
           extraHeaders: { Authorization: `Bearer ${tokens.accessToken}` },
           reconnectionAttempts: 5,
