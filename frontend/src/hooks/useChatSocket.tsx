@@ -36,6 +36,7 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
           extraHeaders: { Authorization: `Bearer ${tokens.accessToken}` },
           reconnectionAttempts: 5,
           reconnectionDelay: 2000,
+          transports: ["websocket"],
           secure: true,
         }
       );
