@@ -24,6 +24,7 @@ import { SingleTick } from "./SingleTick";
 import { DoubleTick } from "./DoubleTick";
 import { Send } from "./Send";
 import { Error } from "./Error";
+import { LeftChevron } from "./LeftChevron";
 
 export {
   DropArrow,
@@ -52,4 +53,5 @@ export {
   DoubleTick,
   Send,
   Error,
+  LeftChevron,
 };

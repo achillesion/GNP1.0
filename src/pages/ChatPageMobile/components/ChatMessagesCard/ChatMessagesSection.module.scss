@@ -1,0 +1,43 @@
+@import "../../../../sass/helper";
+
+.card {
+	padding: 0 18px;
+	width: 100%;
+	min-height: 100vh;
+
+	@include tablet {
+		height: auto;
+	}
+
+	@include desktop {
+		padding: 24px 24px 0;
+	}
+}
+
+.cardTop {
+	display: flex;
+	position: sticky;
+	flex-direction: column;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: white;
+	z-index: 99999;
+	padding: 15px 0;
+}
+
+.title {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: calc(24 / 20);
+}
+
+.divider_mini {
+	// font-size: 0;
+	margin-bottom: 13px;
+	// padding: 0 24px;
+}
+
+.divider {
+	margin-bottom: 25px;
+}

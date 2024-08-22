@@ -23,10 +23,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 100%;
 
     @include desktop {
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 20px;
         justify-content: space-between;
     }
@@ -127,6 +127,10 @@
 .chatSelected {
     display: flex;
     align-items: center;
+
+    button {
+        margin-right: 15px;
+    }
 }
 
 .chatSelectedBody {
@@ -146,6 +150,40 @@
     height: 10px;
     border-radius: 50%;
     margin-right: 5px;
+}
+
+.navigationActive,
+.navigation {
+    background-color: $primary-color;
+    border: 1px solid #f2f2f2;
+    transition: width 300ms ease;
+    position: sticky;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+
+
+    @include tablet {
+        border-radius: $border-radius;
+        position: static;
+    }
+}
+
+.navigation {
+    width: 0px;
+    border: none;
+}
+
+.navigationActive {
+    width: 100%;
+
+    @include tablet {
+        width: 120px;
+    }
+
+    @include desktop {
+        flex-basis: 33%;
+    }
 }
 
 .chatMessagesSkeleton {

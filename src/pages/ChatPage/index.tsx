@@ -33,7 +33,7 @@ const USER_STATUS_COLOR_MAP = {
 const { REACT_APP_IMAGE_BASIC_PATH } = process.env;
 
 export const ChatPage: FC = () => {
-  const socket = useChatSocket(); // Initialize the socket connection
+  const socket = useChatSocket();
   const chat = useAppState().chat;
   const dispatch = useAppDispatch();
   const params = useParams<{ receiverId: string }>();

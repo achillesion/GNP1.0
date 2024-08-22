@@ -23,7 +23,12 @@
 .body,
 .bodyActive {
 	display: flex;
+	flex-direction: column-reverse;
 	gap: 10px;
+
+	@include tablet {
+		flex-direction: row;
+	}
 
 	@include desktop {
 		gap: 30px;
@@ -50,8 +55,17 @@
 .navigation {
 	background-color: $primary-color;
 	border: 1px solid #f2f2f2;
-	border-radius: $border-radius;
 	transition: width 300ms ease;
+	position: fixed;
+	z-index: 9999;
+	bottom: 0;
+	left: 0;
+
+
+	@include tablet {
+		border-radius: $border-radius;
+		position: static;
+	}
 }
 
 .navigation {
@@ -60,7 +74,7 @@
 }
 
 .navigationActive {
-	width: 80px;
+	width: 100%;
 
 	@include tablet {
 		width: 120px;
@@ -74,7 +88,12 @@
 .content {
 	position: relative;
 	flex-basis: 100%;
+	margin-bottom: 60px;
 	@include box-shadow(0.2);
+
+	@include tablet {
+		margin-bottom: 0;
+	}
 }
 
 .toggleNavBar {
@@ -83,6 +102,11 @@
 	left: 10px;
 	transition: all 300ms ease;
 	width: 45px;
+	display: none;
+
+	@include tablet {
+		display: block;
+	}
 
 	@include desktop {
 		display: none;
