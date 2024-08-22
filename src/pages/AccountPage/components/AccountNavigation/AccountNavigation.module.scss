@@ -2,15 +2,22 @@
 
 .navLink,
 .navLinkActive {
-	display: block;
 	transition: all 300ms ease;
 	width: 100%;
 	border-radius: $border-radius;
 	color: $info-color;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	padding: 10px;
+	row-gap: 8px;
+	font-size: clamp(0.8rem, 2.5vw, 1rem);
+
+	@include tablet {
+		flex-direction: row;
+		row-gap: 0;
+	}
 
 	@include desktop {
 		justify-content: stretch;
@@ -20,8 +27,11 @@
 }
 
 .navLinkActive {
-	background-color: #ebfcff;
 	color: $text-color;
+
+	@include tablet {
+		background-color: #ebfcff;
+	}
 }
 
 .navigation {
@@ -34,14 +44,31 @@
 
 .navList {
 	display: flex;
-	flex-direction: column;
-	gap: 14px;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+	gap: 0;
+
+	@include tablet {
+		gap: 14px;
+		flex-direction: column;
+	}
 }
 
 .linkText {
-	display: none;
+	display: block;
+
+	@include tablet {
+		display: none;
+	}
 
 	@include desktop {
 		display: block;
+	}
+}
+
+.navItem {
+	svg {
+		width: clamp(20px, 5vw, 30px);
+		height: clamp(20px, 5vw, 30px);
 	}
 }

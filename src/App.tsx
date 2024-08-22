@@ -1,5 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import { useAppState, useRefresh } from "./hooks";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { useAppState, useRefresh, useResize } from "./hooks";
 import { GNPRoutes } from "./router";
 import { RestrictedRoute, PrivateRoute, ErrorBoundary } from "./hocs";
 import {
@@ -29,10 +29,18 @@ import { Header, LoadingScreen, NotificationContainer } from "./components";
 
 import "react-toastify/dist/ReactToastify.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import { getPoint } from "./utils";
+import { ChatPageMobile } from "./pages/ChatPageMobile";
 
 function App() {
   useRefresh();
   const { authenticate } = useAppState();
+
+  const { pathname } = useLocation();
+  const point = getPoint(pathname);
+
+  const viewWidth = useResize();
+  const isMobile = viewWidth < 768;
 
   return (
     <ErrorBoundary>
@@ -40,7 +48,7 @@ function App() {
         <LoadingScreen />
       ) : (
         <>
-          <Header />
+          {point !== GNPRoutes.chat && <Header />}
           <Routes>
             <Route path={GNPRoutes.home} element={<HomePage />} />
             <Route path={GNPRoutes.searchHangars} element={<SearchHangars />} />
@@ -201,25 +209,51 @@ function App() {
                   }
                 />
               </Route>
-              <Route
-                path={GNPRoutes.chat}
-                element={
-                  <PrivateRoute
-                    redirectTo={GNPRoutes.signIn}
-                    component={<ChatPage />}
+              {!isMobile && (
+                <>
+                  <Route
+                    path={GNPRoutes.chat}
+                    element={
+                      <PrivateRoute
+                        redirectTo={GNPRoutes.signIn}
+                        component={<ChatPage />}
+                      />
+                    }
                   />
-                }
-              />
-              <Route
-                path={`${GNPRoutes.chat}/:receiverId`}
-                element={
-                  <PrivateRoute
-                    redirectTo={GNPRoutes.signIn}
-                    component={<ChatPage />}
+                  <Route
+                    path={`${GNPRoutes.chat}/:receiverId`}
+                    element={
+                      <PrivateRoute
+                        redirectTo={GNPRoutes.signIn}
+                        component={<ChatPage />}
+                      />
+                    }
                   />
-                }
-              />
+                </>
+              )}
             </Route>
+            {isMobile && (
+              <>
+                <Route
+                  path={`${GNPRoutes.account}/${GNPRoutes.chat}`}
+                  element={
+                    <PrivateRoute
+                      redirectTo={GNPRoutes.signIn}
+                      component={<ChatPageMobile />}
+                    />
+                  }
+                />
+                <Route
+                  path={`${GNPRoutes.account}/${GNPRoutes.chat}/:receiverId`}
+                  element={
+                    <PrivateRoute
+                      redirectTo={GNPRoutes.signIn}
+                      component={<ChatPageMobile />}
+                    />
+                  }
+                />
+              </>
+            )}
             <Route path={GNPRoutes.notFound} element={<NotFoundPage />} />
           </Routes>
         </>

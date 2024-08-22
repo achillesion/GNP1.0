@@ -51,20 +51,12 @@ export const ChatMessagesList: FC = () => {
 
   return (
     <>
-      <div
-        style={{
-          minHeight: "414px",
-          maxHeight: "414px",
-          overflowY: "auto",
-        }}
-        ref={chatScrollRef}
-      >
+      <div ref={chatScrollRef}>
         <div
           style={{
             rowGap: "1rem",
             display: "flex",
             flexDirection: "column",
-            padding: "0 24px",
           }}
         >
           {chat.messages.map((message: Message, index: number) => {
@@ -130,8 +122,9 @@ export const ChatMessagesList: FC = () => {
       </div>
       <div
         style={{
-          position: "absolute",
+          position: "sticky",
           bottom: 0,
+          left: 0,
           width: "100%",
           backgroundColor: "white",
         }}
