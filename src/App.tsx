@@ -40,7 +40,12 @@ function App() {
   const point = getPoint(pathname);
 
   const viewWidth = useResize();
-  const isMobile = viewWidth < 768;
+  const isMobile = viewWidth < 1200;
+
+  console.log(
+    `pathname.split("/")[length-2]`,
+    pathname.split("/")[pathname.split("/").length - 2]
+  );
 
   return (
     <ErrorBoundary>
@@ -48,7 +53,14 @@ function App() {
         <LoadingScreen />
       ) : (
         <>
-          {point !== GNPRoutes.chat && <Header />}
+          {!isMobile ? (
+            <Header />
+          ) : isMobile &&
+            point !== GNPRoutes.chat &&
+            pathname.split("/")[pathname.split("/").length - 2] !==
+              GNPRoutes.chat ? (
+            <Header />
+          ) : null}
           <Routes>
             <Route path={GNPRoutes.home} element={<HomePage />} />
             <Route path={GNPRoutes.searchHangars} element={<SearchHangars />} />

@@ -163,7 +163,7 @@
     left: 0;
 
 
-    @include tablet {
+    @include desktop {
         border-radius: $border-radius;
         position: static;
     }
@@ -177,9 +177,9 @@
 .navigationActive {
     width: 100%;
 
-    @include tablet {
-        width: 120px;
-    }
+    // @include tablet {
+    //     width: 120px;
+    // }
 
     @include desktop {
         flex-basis: 33%;
