@@ -16,10 +16,10 @@ export const AccountNavigation: FC = () => {
   const { pathname } = useLocation();
 
   const viewWidth = useResize();
-  const isMobile = viewWidth < 1200;
+  const isTabletOrMobile = viewWidth < 1200;
 
   function modifyPath(path: string) {
-    return isMobile ? `/account/${path}` : path;
+    return isTabletOrMobile ? `/account/${path}` : path;
   }
 
   return (

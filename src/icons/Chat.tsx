@@ -4,8 +4,8 @@ import { NavIconProps } from "../d";
 export const Chat: FC<NavIconProps> = ({ isActive }) => {
   return isActive ? (
     <svg
-      width="20"
-      height="20"
+      width="10"
+      height="10"
       viewBox="0 0 17 17"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,8 +19,8 @@ export const Chat: FC<NavIconProps> = ({ isActive }) => {
     </svg>
   ) : (
     <svg
-      width="20"
-      height="20"
+      width="10"
+      height="10"
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

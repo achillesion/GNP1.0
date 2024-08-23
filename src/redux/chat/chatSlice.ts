@@ -60,7 +60,6 @@ const chatSlice = createSlice({
       }
     },
     setLoadingProfiles: (state, action: PayloadAction<boolean>) => {
-      console.log("Payload:", action.payload);
       state.isLoadingProfiles = action.payload;
     },
     setLoadingMessages: (state, action: PayloadAction<boolean>) => {

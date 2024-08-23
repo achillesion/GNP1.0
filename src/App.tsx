@@ -40,12 +40,7 @@ function App() {
   const point = getPoint(pathname);
 
   const viewWidth = useResize();
-  const isMobile = viewWidth < 1200;
-
-  console.log(
-    `pathname.split("/")[length-2]`,
-    pathname.split("/")[pathname.split("/").length - 2]
-  );
+  const isTabletOrMobile = viewWidth < 1200;
 
   return (
     <ErrorBoundary>
@@ -53,9 +48,9 @@ function App() {
         <LoadingScreen />
       ) : (
         <>
-          {!isMobile ? (
+          {!isTabletOrMobile ? (
             <Header />
-          ) : isMobile &&
+          ) : isTabletOrMobile &&
             point !== GNPRoutes.chat &&
             pathname.split("/")[pathname.split("/").length - 2] !==
               GNPRoutes.chat ? (
@@ -221,7 +216,7 @@ function App() {
                   }
                 />
               </Route>
-              {!isMobile && (
+              {!isTabletOrMobile && (
                 <>
                   <Route
                     path={GNPRoutes.chat}
@@ -244,7 +239,7 @@ function App() {
                 </>
               )}
             </Route>
-            {isMobile && (
+            {isTabletOrMobile && (
               <>
                 <Route
                   path={`${GNPRoutes.account}/${GNPRoutes.chat}`}

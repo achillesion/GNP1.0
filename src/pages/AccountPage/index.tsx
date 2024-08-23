@@ -12,7 +12,7 @@ export const AccountPage: FC = () => {
   useScroll(entityController.isOpenDeleteModal);
   const viewWidth = useResize();
   const isDesktop = viewWidth > 1200;
-  const isMobile = viewWidth < 1200;
+  const isTabletOrMobile = viewWidth < 1200;
 
   const { pathname } = useLocation();
   const point = getPoint(pathname);
@@ -24,7 +24,7 @@ export const AccountPage: FC = () => {
       <Container>
         <h1 className={sass.title}>
           {point === GNPRoutes.chat
-            ? isMobile
+            ? isTabletOrMobile
               ? "Chats"
               : "My Account"
             : "My Account"}
