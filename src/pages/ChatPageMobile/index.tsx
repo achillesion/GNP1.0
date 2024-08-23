@@ -1,6 +1,6 @@
 import sass from "./ChatPageMobile.module.scss";
 import { FC, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import { useAppDispatch, useAppState, useChatSocket } from "../../hooks";
 import { LeftChevron, Search } from "../../icons";
@@ -38,6 +38,7 @@ export const ChatPageMobile: FC = () => {
   const chat = useAppState().chat;
   const dispatch = useAppDispatch();
   const params = useParams<{ receiverId: string }>();
+  const navigate = useNavigate();
 
   const onSubmit = async (values: SearchChatProfileValues) => {
     // TODO: Implement search chat profiles
@@ -132,7 +133,12 @@ export const ChatPageMobile: FC = () => {
             ) : (
               <>
                 <div className={sass.chatSelected}>
-                  <button onClick={() => dispatch(setSelectedProfile(null))}>
+                  <button
+                    onClick={() => {
+                      dispatch(setSelectedProfile(null));
+                      navigate("/account/chat");
+                    }}
+                  >
                     <LeftChevron />
                   </button>
                   <Avatar

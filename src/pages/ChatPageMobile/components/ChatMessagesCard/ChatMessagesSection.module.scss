@@ -5,11 +5,12 @@
 	width: 100%;
 	min-height: 100vh;
 
-	@include tablet {
-		height: auto;
-	}
+	// @include tablet {
+	// 	height: auto;
+	// }
 
 	@include desktop {
+		height: auto;
 		padding: 24px 24px 0;
 	}
 }

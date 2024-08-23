@@ -26,11 +26,11 @@
 	flex-direction: column-reverse;
 	gap: 10px;
 
-	@include tablet {
-		flex-direction: row;
-	}
+	// @include tablet {
+	// }
 
 	@include desktop {
+		flex-direction: row;
 		gap: 30px;
 	}
 }
@@ -62,7 +62,7 @@
 	left: 0;
 
 
-	@include tablet {
+	@include desktop {
 		border-radius: $border-radius;
 		position: static;
 	}
@@ -76,9 +76,9 @@
 .navigationActive {
 	width: 100%;
 
-	@include tablet {
-		width: 120px;
-	}
+	// @include tablet {
+	// 	width: 120px;
+	// }
 
 	@include desktop {
 		flex-basis: 33%;
@@ -91,7 +91,7 @@
 	margin-bottom: 60px;
 	@include box-shadow(0.2);
 
-	@include tablet {
+	@include desktop {
 		margin-bottom: 0;
 	}
 }
@@ -104,11 +104,11 @@
 	width: 45px;
 	display: none;
 
-	@include tablet {
-		display: block;
-	}
+	// @include tablet {
+	// 	display: block;
+	// }
 
-	@include desktop {
-		display: none;
-	}
+	// @include desktop {
+	// 	display: none;
+	// }
 }

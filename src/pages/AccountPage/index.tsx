@@ -12,7 +12,7 @@ export const AccountPage: FC = () => {
   useScroll(entityController.isOpenDeleteModal);
   const viewWidth = useResize();
   const isDesktop = viewWidth > 1200;
-  const isMobile = viewWidth < 768;
+  const isMobile = viewWidth < 1200;
 
   const { pathname } = useLocation();
   const point = getPoint(pathname);

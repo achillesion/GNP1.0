@@ -57,6 +57,7 @@ export const ChatMessagesList: FC = () => {
             rowGap: "1rem",
             display: "flex",
             flexDirection: "column",
+            minHeight: "100vh",
           }}
         >
           {chat.messages.map((message: Message, index: number) => {
