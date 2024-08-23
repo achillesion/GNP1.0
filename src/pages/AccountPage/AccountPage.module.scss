@@ -26,9 +26,6 @@
 	flex-direction: column-reverse;
 	gap: 10px;
 
-	// @include tablet {
-	// }
-
 	@include desktop {
 		flex-direction: row;
 		gap: 30px;
@@ -76,10 +73,6 @@
 .navigationActive {
 	width: 100%;
 
-	// @include tablet {
-	// 	width: 120px;
-	// }
-
 	@include desktop {
 		flex-basis: 33%;
 	}
@@ -103,12 +96,4 @@
 	transition: all 300ms ease;
 	width: 45px;
 	display: none;
-
-	// @include tablet {
-	// 	display: block;
-	// }
-
-	// @include desktop {
-	// 	display: none;
-	// }
 }

@@ -57,7 +57,7 @@ export const ChatMessagesList: FC = () => {
             rowGap: "1rem",
             display: "flex",
             flexDirection: "column",
-            minHeight: "100vh",
+            paddingBottom: "60px",
           }}
         >
           {chat.messages.map((message: Message, index: number) => {
@@ -123,7 +123,7 @@ export const ChatMessagesList: FC = () => {
       </div>
       <div
         style={{
-          position: "sticky",
+          position: "fixed",
           bottom: 0,
           left: 0,
           width: "100%",

@@ -10,15 +10,8 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding: 10px;
 	row-gap: 8px;
 	font-size: clamp(0.8rem, 2.5vw, 1rem);
-
-	// To be tested
-	// @include tablet {
-	// 	flex-direction: row;
-	// 	row-gap: 0;
-	// }
 
 	@include desktop {
 		flex-direction: row;
@@ -58,14 +51,6 @@
 
 .linkText {
 	display: block;
-
-	// @include tablet {
-	// 	display: none;
-	// }
-
-	// @include desktop {
-	// 	display: block;
-	// }
 }
 
 .navItem {
