@@ -1,3 +1,4 @@
+import { useAppState, useChatScroll } from "../../../../hooks";
 import sass from "./ChatMessagesSection.module.scss";
 import { FC, PropsWithChildren } from "react";
 
@@ -13,10 +14,15 @@ export const ChatMessagesSection: FC<ChatMessagesSectionProps> = ({
   banner,
   action,
 }) => {
+  const { messages } = useAppState().chat;
+  const chatScrollRef = useChatScroll(messages);
+
   return (
     <>
-      <div className={sass.card}>
-        <div className={sass.cardTop}>{banner}</div>
+      <div ref={chatScrollRef} className={sass.card}>
+        <div ref={chatScrollRef} className={sass.cardTop}>
+          {banner}
+        </div>
         {children}
       </div>
     </>

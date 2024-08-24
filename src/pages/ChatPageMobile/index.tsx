@@ -20,6 +20,7 @@ import {
   setSelectedProfile,
 } from "../../redux/store";
 import { AccountNavigation } from "../AccountPage/components";
+import { FormatterDate } from "../../utils";
 
 const initialValues: SearchChatProfileValues = {
   name: "",
@@ -154,7 +155,7 @@ export const ChatPageMobile: FC = () => {
                       {chat.selectedProfile.user.name}
                     </div>
                     <div className={sass.chatSelectedStatus}>
-                      <div
+                      <p
                         className={sass.chatSelectedIndicator}
                         style={{
                           backgroundColor:
@@ -163,9 +164,11 @@ export const ChatPageMobile: FC = () => {
                                 "OFFLINE"
                             ],
                         }}
-                      ></div>
+                      ></p>
                       {chat.activeUsers[chat.selectedProfile.user.id] ||
-                        "OFFLINE"}
+                        `Last seen at ${FormatterDate.formatDateForChatProfile(
+                          chat.selectedProfile.user.lastSeen as string
+                        )}`}
                     </div>
                   </div>
                 </div>

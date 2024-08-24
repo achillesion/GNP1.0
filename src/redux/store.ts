@@ -100,6 +100,7 @@ import chatReducer, {
   setLoadingProfile,
   setActiveUsers,
   updateActiveUser,
+  updateLastSeen,
 } from "./chat/chatSlice";
 
 import homeReducer, { setHomeModal } from "./home/homeControllSlice";
@@ -215,4 +216,5 @@ export {
   setLoadingProfile,
   setActiveUsers,
   updateActiveUser,
+  updateLastSeen,
 };

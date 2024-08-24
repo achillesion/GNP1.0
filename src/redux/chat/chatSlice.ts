@@ -79,6 +79,25 @@ const chatSlice = createSlice({
         state.activeUsers[id] = status;
       }
     },
+    updateLastSeen: (
+      state,
+      action: PayloadAction<{ userId: string; date: string | null }>
+    ) => {
+      const { userId, date } = action.payload;
+      const profileIndex = state.chatProfiles.findIndex((profile, index) => {
+        return profile.user.id === userId;
+      });
+
+      if (profileIndex !== -1) {
+        state.chatProfiles[profileIndex].user.lastSeen = date;
+        if (
+          state.chatProfiles[profileIndex].user.id ===
+          state.selectedProfile?.user.id
+        ) {
+          state.selectedProfile.user.lastSeen = date;
+        }
+      }
+    },
   },
 });
 
@@ -95,5 +114,6 @@ export const {
   setLoadingProfile,
   setActiveUsers,
   updateActiveUser,
+  updateLastSeen,
 } = chatSlice.actions;
 export default chatSlice.reducer;

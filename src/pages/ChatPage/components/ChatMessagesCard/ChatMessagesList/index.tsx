@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   useAppDispatch,
   useAppState,
@@ -37,7 +38,7 @@ export const ChatMessagesList: FC = () => {
 
   function handleSendMessage() {
     const message: Message = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       senderId: authenticate.user!.id,
       receiverId: chat.selectedProfile!.user.id,
       message: messageText,
@@ -48,6 +49,12 @@ export const ChatMessagesList: FC = () => {
     socket?.emit("message", message);
     setMessageText("");
   }
+
+  useEffect(() => {
+    if (socket) {
+      socket.emit("getLastSeen", chat.selectedProfile?.user.id);
+    }
+  }, [chat.selectedProfile, socket]);
 
   return (
     <>

@@ -19,6 +19,7 @@ import {
   setLoadingProfiles,
   setSelectedProfile,
 } from "../../redux/store";
+import { FormatterDate } from "../../utils";
 
 const initialValues: SearchChatProfileValues = {
   name: "",
@@ -159,7 +160,9 @@ export const ChatPage: FC = () => {
                               }}
                             ></p>
                             {chat.activeUsers[chat.selectedProfile.user.id] ||
-                              "OFFLINE"}
+                              `Last seen at ${FormatterDate.formatDateForChatProfile(
+                                chat.selectedProfile.user.lastSeen as string
+                              )}`}
                           </div>
                         </div>
                       </div>
