@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   useAppDispatch,
   useAppState,
-  useChatScroll,
   useChatSocket,
 } from "../../../../../hooks";
 import { Message } from "../../../../../d";
@@ -22,8 +22,9 @@ export const ChatMessagesList: FC = () => {
   const { chat, authenticate } = useAppState();
   const dispatch = useAppDispatch();
   const socket = useChatSocket();
-  const chatScrollRef = useChatScroll(chat.messages);
   const [messageText, setMessageText] = useState<string>("");
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+  const [lastMessageCount, setLastMessageCount] = useState<number>(0);
 
   function formatDate(dateString: string) {
     const date = new Date(dateString);
@@ -37,7 +38,7 @@ export const ChatMessagesList: FC = () => {
 
   function handleSendMessage() {
     const message: Message = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       senderId: authenticate.user!.id,
       receiverId: chat.selectedProfile!.user.id,
       message: messageText,
@@ -49,77 +50,87 @@ export const ChatMessagesList: FC = () => {
     setMessageText("");
   }
 
+  useEffect(() => {
+    // Scroll to the last message if a new message is added
+    if (chat.messages.length > lastMessageCount) {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+      setLastMessageCount(chat.messages.length);
+    }
+  }, [chat.messages, lastMessageCount]);
+
   return (
     <>
-      <div ref={chatScrollRef}>
-        <div
-          style={{
-            rowGap: "1rem",
-            display: "flex",
-            flexDirection: "column",
-            paddingBottom: "60px",
-          }}
-        >
-          {chat.messages.map((message: Message, index: number) => {
-            const senderName =
-              message.senderId === authenticate.user?.id
-                ? "You"
-                : chat.selectedProfile?.user.name;
-            return (
-              <div style={{}} key={index}>
+      <div
+        style={{
+          rowGap: "1rem",
+          display: "flex",
+          flexDirection: "column",
+          paddingBottom: "60px",
+        }}
+      >
+        {chat.messages.map((message: Message, index: number) => {
+          const senderName =
+            message.senderId === authenticate.user?.id
+              ? "You"
+              : chat.selectedProfile?.user.name;
+
+          return (
+            <div
+              key={index}
+              ref={index === chat.messages.length - 1 ? lastMessageRef : null}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between",
                   }}
                 >
-                  <div
+                  <Avatar
+                    size={40}
+                    src={
+                      senderName === "You"
+                        ? `${REACT_APP_IMAGE_BASIC_PATH}${authenticate.user?.avatar}`
+                        : chat.selectedProfile?.user.avatar
+                        ? `${REACT_APP_IMAGE_BASIC_PATH}${chat.selectedProfile?.user.avatar}`
+                        : "https://gravatar.com/avatar?s=300&d=mp"
+                    }
+                  />
+                  <p
                     style={{
-                      display: "flex",
-                      alignItems: "center",
+                      fontSize: "1rem",
+                      fontWeight: "bold",
+                      marginLeft: "16px",
                     }}
                   >
-                    <Avatar
-                      size={40}
-                      src={
-                        senderName === "You"
-                          ? `${REACT_APP_IMAGE_BASIC_PATH}${authenticate.user?.avatar}`
-                          : chat.selectedProfile?.user.avatar
-                          ? `${REACT_APP_IMAGE_BASIC_PATH}${chat.selectedProfile?.user.avatar}`
-                          : "https://gravatar.com/avatar?s=300&d=mp"
-                      }
-                    />
-                    <p
-                      style={{
-                        fontSize: "1rem",
-                        fontWeight: "bold",
-                        marginLeft: "16px",
-                      }}
-                    >
-                      {senderName}
-                    </p>
-                    <p
-                      style={{
-                        fontWeight: "300",
-                        marginLeft: "8px",
-                        color: "#666668",
-                      }}
-                    >
-                      {formatDate(message.createdAt)}
-                    </p>
-                  </div>
-                  <span style={{ color: "#666668" }}>
-                    {message.status
-                      ? MESSAGE_STATUS[message.status]
-                      : MESSAGE_STATUS["SENT"]}
-                  </span>
+                    {senderName}
+                  </p>
+                  <p
+                    style={{
+                      fontWeight: "300",
+                      marginLeft: "8px",
+                      color: "#666668",
+                    }}
+                  >
+                    {formatDate(message.createdAt)}
+                  </p>
                 </div>
-                <p style={{ marginLeft: "56px" }}>{message.message}</p>
+                <span style={{ color: "#666668" }}>
+                  {message.status
+                    ? MESSAGE_STATUS[message.status]
+                    : MESSAGE_STATUS["SENT"]}
+                </span>
               </div>
-            );
-          })}
-        </div>
+              <p style={{ marginLeft: "56px" }}>{message.message}</p>
+            </div>
+          );
+        })}
       </div>
       <div
         style={{

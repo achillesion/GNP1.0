@@ -13,6 +13,7 @@ import {
   updateChatProfile,
   setActiveUsers,
   updateActiveUser,
+  updateLastSeen,
 } from "../redux/store";
 import { Socket } from "socket.io-client";
 import { UserStatusPayload } from "../d";
@@ -68,6 +69,7 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
           user: profile,
           lastMessage: null,
           lastMessageDate: null,
+          lastSeen: null,
         };
         dispatch(setSelectedProfile(chatProfile));
         dispatch(setLoadingProfile(false));
@@ -84,6 +86,11 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
         } else {
           dispatch(addMessage(payload));
         }
+      });
+
+      socket.on("lastSeen", (payload) => {
+        console.log("lastSeen", payload);
+        dispatch(updateLastSeen(payload));
       });
 
       socket.on("activeUsers", (users: [string][]) => {

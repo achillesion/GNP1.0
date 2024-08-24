@@ -252,6 +252,7 @@ export type User = {
   phone: string;
   state: string;
   avatar?: string | null;
+  lastSeen?: string | null;
 };
 
 export type RegisterValues = {

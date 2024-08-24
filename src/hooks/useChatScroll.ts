@@ -6,7 +6,10 @@ export const useChatScroll = <T>(
   const ref = React.useRef<HTMLDivElement | null>(null);
   React.useEffect(() => {
     if (ref.current) {
-      ref.current.scrollTop = ref.current.scrollHeight;
+      ref.current.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth",
+      });
     }
   }, [dep]);
   return ref;
